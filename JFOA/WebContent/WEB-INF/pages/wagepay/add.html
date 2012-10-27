@@ -1,0 +1,66 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script>
+$(function (){
+	initQueryForm();
+});
+</script>
+<div class="pageContent">
+		<form method="post" action="${root!}/wagepay/save" id="articlefrom" class="pageForm required-validate"onsubmit="return validateCallback(this, dialogAjaxDone);">
+			<input name="wagepay.id" type="hidden" value="${pojo.id!}">
+			<div class="pageFormContent" id="articleSave" layoutH="55">
+	<p>
+		<label>
+			编号
+		</label>
+		<input type="text" name="wagepay.num" value="${pojo.num!}" class="required">
+	</p>
+	<p>
+		<label>
+			部门名称
+		</label>
+		<input type="text" name="wagepay.name" value="${pojo.name!}" class="required">
+	</p>
+	<p>
+		<label>
+			组织机构
+		</label>
+		<select class="combox" class="combox" name="wagepay.orgid" val="${pojo.orgid!}">
+		<@orgSelect/>
+		</select>
+	</p>
+	<p>
+		<label>
+			上级部门
+		</label>
+		<select class="combox" name="wagepay.pid" val="${pojo.pid!}">
+		<option value="">顶级部门</option>
+		<@partSelect/>
+		</select>
+	</p>
+	<p>
+		<label>
+			备注
+		</label>
+		<input type="text" name="wagepay.remark" value="${pojo.remark!}">
+	</p>
+	
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">保存</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

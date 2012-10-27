@@ -1,0 +1,95 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script>
+$("#menu_tablse tr td:nth-child(2)").each(function(r,td){
+	var num=(new Number($(td).text()));
+	$(td).text(menuType[num]);
+});
+<#list powerlist as p>$("[name='menus'][value=${p.menuid!}]").attr("checked","true");</#list>
+</script>
+<style>
+.span0{margin-left:0px;}
+.span1{margin-left:20px;}
+.span2{margin-left:40px;}
+.span3{margin-left:60px;}
+.span4{margin-left:80px;}
+</style>
+<div class="pageContent">
+		<form method="post" action="${root!}/power/save/${objid!}-${type!}" id="articlefrom" class="pageForm required-validate"onsubmit="return validateCallback(this, dialogAjaxDone);">
+			<div class="pageFormContent" id="articleSave" layoutH="50">
+			<div class="panelBar">
+			<#if objname??>配置【${objname}】权限</#if>
+			</div>
+			<table class="table" width="600px" id="menu_tablse" layoutH="50">
+			<thead><tr>
+			<#list collist as t>
+			<th>${t!}</th>
+			</#list>
+			</tr></thead>
+			<tbody>
+				<#list list as d>
+				<#if d.级别==0>
+				<tr>
+				<#list collist as t>
+				<td><#if t_index==0><input type="checkbox" value="${d.id!}" name="menus"></#if>${d.get(t)!}</td>
+				</#list>
+				</tr>
+					<#list list as d1>
+					<#if d1.级别==1&&d1.pid==d.id>
+					<tr>
+					<#list collist as t>
+					<td><#if t_index==0><span class="span${d1.级别}"></span>┕<input type="checkbox" value="${d1.id!}" name="menus"></#if>${d1.get(t)!}</td>
+					</#list>
+					</tr>
+						<#list list as d2>
+						<#if d2.级别==2&&d2.pid==d1.id>
+						<tr>
+						<#list collist as t>
+						<td><#if t_index==0><span class="span${d2.级别}"></span>┕<input type="checkbox" value="${d2.id!}" name="menus"></#if>${d2.get(t)!}</td>
+						</#list>
+						</tr>
+							<#list list as d3>
+							<#if d3.级别==3&&d3.pid==d2.id>
+							<tr>
+							<#list collist as t>
+							<td><#if t_index==0><span class="span${d3.级别}"></span>┕<input type="checkbox" value="${d3.id!}" name="menus"></#if>${d3.get(t)!}</td>
+							</#list>
+							</tr>
+								<#list list as d4>
+								<#if d4.级别==4&&d4.pid==d3.id>
+								<tr>
+								<#list collist as t>
+								<td><#if t_index==0><span class="span${d4.级别}"></span>┕<input type="checkbox" value="${d4.id!}" name="menus"></#if>${d4.get(t)!}</td>
+								</#list>
+								</tr>
+								</#if>
+								</#list>
+							</#if>
+							</#list>
+						</#if>
+						</#list>
+					</#if>
+					</#list>
+				</#if>
+				</#list>
+			</tbody>
+		</table>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">保存</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

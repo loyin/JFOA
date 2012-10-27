@@ -1,0 +1,60 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script type="text/javascript">
+$(function (){
+	initQueryForm();
+});
+</script>
+<div class="pageHeader">
+		<form action="${root!}/activiti" method="post" id="pagerForm"
+			onsubmit="return navTabSearch(this)">
+			<input type="hidden" name="pageNum" value="${page.pageNumber!}" /> <input type="hidden" name="numPerPage" value="${page.pageSize!}" />
+			<div class="searchBar">
+				<ul class="searchContent">
+					<li>
+						<label>
+							流程名称
+						</label>
+						<input type="text" name="name" val="${name!}"/>
+					</li>
+					<li><label>
+							流程分类
+						</label>
+						<input type="text" name="name1" val="${name1!}"/></li>
+				</ul>
+				<@searchBar/>
+			</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="javascript:void(0);" url="${root!}/activiti/add" title="添加角色"
+					target="dialog" height="200" width="600"><span>添加</span> </a></li>
+				<li><a class="edit" href="javascript:void(0);" url="${root!}/activiti/add/{sid_key}"
+					title="修改角色" target="dialog" height="200" width="600"><span>修改</span>
+				</a></li>
+				<li class="line">line</li>
+				<li><a class="delete" href="javascript:void(0);" url="${root!}/activiti/del/{sid_key}" title="确定要删除该角色吗？" target="ajaxTodo"><span>删除</span> </a></li>
+			</ul>
+		</div>
+		<table class="table" id="fdsa" width="700px" layouth="135">
+		<thead>
+		<tr><th>行号</th>
+		<th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+		</tr>
+		</thead>
+		<#if page??&&page.list??>
+		<tbody>
+		<#list page.list as p>
+			<tr ${p.id}>
+			<td>${p_index}</td><td>${p.id}</td><td>${p.category}</td><td>${p.name}</td><td>${p.key}</td><td>${p.version}</td><td>${p.resourceName}</td><td>${p.deploymentid}</td>
+			<td>${p.diagramResourceName}</td>
+			</tr>
+		</#list>
+		</tbody>
+		</#if>
+		</table>
+	</div>
+<@paginate/>
+</@layout>

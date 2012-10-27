@@ -1,0 +1,38 @@
+<#assign path="${root!}">
+<div class="accordion" fillSpace="sidebar">
+<#--权限菜单-->
+<#list menuChild as menu0>
+<#if (menu0.pid==pid!0)>
+<div class="accordionHeader">
+<h2><span>Folder</span>${menu0.name }</h2>
+</div>
+<div class="accordionContent">
+<ul class="tree treeFolder">
+<#list menuChild as menu1>
+<#if (menu1.pid!0)==menu0.id>
+<li>
+<#if menu1.url??&&menu1.type==1>
+<a href="javascript:void(0);" url="${path}/${menu1.url}" target="<#if menu1.target??&& menu1.target==1>dialog<#else>navTab</#if>" rel="${menu1.rel!(menu1.url!)}">${menu1.name!}</a>
+</#if>
+<#if (!menu1.url??)&&menu1.type==1>
+<a>${menu1.name }</a>
+<ul>
+<#list menuChild as menu2>
+<#if menu2.type==0 &&(menu2.pid??&&menu2.pid==menu1.id)>
+<li>
+<a href="javascript:void(0);" url="${path}/${menu2.url!}" target="<#if menu2.target??&& menu2.target==1>dialog<#else>navTab</#if>" 
+rel="${menu2.rel!(menu2.url!)}"
+>${menu2.name! }</a>
+</li>
+</#if>
+</#list>
+</ul>
+</#if>
+</li>
+</#if>
+</#list>
+</ul>
+</div>
+</#if>
+</#list>
+</div>

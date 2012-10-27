@@ -1,0 +1,103 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<style>
+.menustat0,.menustat1{background: url(ht/dwz/default/images/button/imgX.gif) no-repeat;width:22px;height:20px;}
+.menustat1{background-position: -98px;}
+.menustat0{background-position: -28px;}
+.btnmoveDown span,.btnmoveUp span{background: url(ht/dwz/default/images/panel/panel_icon.png) no-repeat;}
+.btnmoveUp span{background-position:0 2px;}
+.btnmoveDown span{background-position:0 -98px;}
+.span0{margin-left:0px;}
+.span1{margin-left:20px;}
+.span2{margin-left:40px;}
+.span3{margin-left:60px;}
+.span4{margin-left:80px;}
+</style>
+<script type="text/javascript">
+	$("#menu_table tr td:nth-child(2)").each(function(r,td){
+		var num=(new Number($(td).text()));
+		$(td).text(menuType[num]);
+	});
+	$("#menu_table tr td:nth-child(8)").each(function(r,td){
+		var num=(new Number($(td).text()));
+		$(td).html("<span class='menustat"+num+"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>");
+	});
+</script>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="javascript:void(0);" url="${root!}/menu/add" title="添加顶级菜单"
+					target="dialog" height="300" width="800"><span>添加顶级菜单</span> </a></li>
+				<li><a class="add" href="javascript:void(0);" url="${root!}/menu/child/{sid_key}" title="添加子菜单"
+					target="dialog" height="300" width="800"><span>添加子菜单</span> </a></li>
+				<li><a class="edit" href="javascript:void(0);" url="${root!}/menu/add/{sid_key}"
+					title="修改菜单" target="dialog" height="300" width="800"><span>修改</span>
+				</a></li>
+				<li class="line">line</li>
+				<li><a class="delete" href="javascript:void(0);" url="${root!}/menu/del/{sid_key}" title="确定要删除该菜单吗？" target="ajaxTodo"><span>删除</span> </a></li>
+				<li><a class="delete" href="javascript:void(0);" url="${root!}/menu/enable/{sid_key}" title="确定要禁用活激活该菜单吗？" target="ajaxTodo"><span>禁用/激活</span> </a></li>
+				<li class="line">line</li>
+				<li><a class="btnmoveUp" href="javascript:void(0);" url="${root!}/menu/move/0-{sid_key}" target="ajaxTodo"><span>上移</span> </a></li>
+				<li><a class="btnmoveDown" href="javascript:void(0);" url="${root!}/menu/move/1-{sid_key}" target="ajaxTodo"><span>下移</span> </a></li>
+			</ul>
+		</div>
+		<table class="table" width="800px" id="menu_table" layouth="50">
+			<thead><tr>
+			<#list collist as t>
+			<th>${t!}</th>
+			</#list>
+			</tr></thead>
+			<tbody>
+				<#list list as d>
+				<#if d.级别==0>
+				<tr target="sid_key" rel="${d.id!}">
+				<#list collist as t>
+				<td>${d.get(t)!}</td>
+				</#list>
+				</tr>
+					<#list list as d1>
+					<#if d1.级别==1&&d1.pid==d.id>
+					<tr target="sid_key" rel="${d1.id!}">
+					<#list collist as t>
+					<td><#if t_index==0><span class="span${d1.级别}"></span>┕</#if>${d1.get(t)!}</td>
+					</#list>
+					</tr>
+						<#list list as d2>
+						<#if d2.级别==2&&d2.pid==d1.id>
+						<tr target="sid_key" rel="${d2.id!}">
+						<#list collist as t>
+						<td><#if t_index==0><span class="span${d2.级别}"></span>┕</#if>${d2.get(t)!}</td>
+						</#list>
+						</tr>
+						   <#if d2.链接!!="">
+							<#list list as d3>
+							<#if d3.级别==3&&d3.pid==d2.id>
+							<tr target="sid_key" rel="${d3.id!}">
+							<#list collist as t>
+							<td><#if t_index==0><span class="span${d3.级别}"></span>┕</#if>${d3.get(t)!}</td>
+							</#list>
+							</tr>
+							  <#if d3.链接!!="">
+								<#list list as d4>
+								<#if d4.级别==4&&d4.pid==d3.id>
+								<tr target="sid_key" rel="${d4.id!}">
+								<#list collist as t>
+								<td><#if t_index==0><span class="span${d4.级别}"></span>┕</#if>${d4.get(t)!}</td>
+								</#list>
+								</tr>
+								</#if>
+								</#list>
+							   </#if>	
+							</#if>
+							</#list>
+						   </#if>
+						</#if>
+						</#list>
+					</#if>
+					</#list>
+				</#if>
+				</#list>
+			</tbody>
+		</table>
+	</div>
+</@layout>

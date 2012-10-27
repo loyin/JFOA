@@ -1,0 +1,38 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script>
+<#list urolelist as ur>
+$("[name='roles'][value='${ur.roleid!}']").attr("checked","true");
+</#list>
+</script>
+<div class="pageContent">
+		<form method="post" action="${root!}/employee/saveRole/${id!}" id="articlefrom" class="pageForm required-validate"onsubmit="return validateCallback(this, dialogAjaxDone);">
+			<div class="pageFormContent" id="articleSave" layoutH="55">
+				<p>
+				员工：${pojo.fullname}[${pojo.userno}]
+				</p>
+				<p>
+				角色：
+				<#list rolelist as r>
+				<input type="checkbox" name="roles" value="${r.id!}">${r.name!}
+				</#list>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">保存</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

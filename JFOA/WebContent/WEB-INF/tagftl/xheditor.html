@@ -1,0 +1,6 @@
+<#macro xheditor name id width=500 height=400 allowupload=0 mini=1>
+<textarea name="${name}" id="xheditor${id}"]	 style="width:${width!}px;height:${height!}px;">
+<#nested>
+</textarea>
+<script>$("#xheditor${id}").xheditor(xheditor_<#if allowupload==1>ajaxupload_</#if><#if mini==1>mini</#if>);</script>
+</#macro>

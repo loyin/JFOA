@@ -1,0 +1,38 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<div class="pageHeader">
+		<form action="${path}/power/list" method="post" id="pagerForm"
+			onsubmit="return divSearch(this,'powerbox')">
+			<input type="hidden" name="pageNum" value="${page.pageNumber!}" /> <input
+				type="hidden" name="numPerPage" value="${page.pageSize!}" />
+			<div class="searchBar">
+				<ul class="searchContent">
+					<li>
+						<label>账号</label>
+						<input type="text" name="userno" value="${userno!}">
+					</li>
+					<li>
+						<label>姓名</label>
+						<input type="text" name="fullname" value="${fullname!}">
+					</li>
+				</ul>
+				<@searchBar/>
+			</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="edit" href="javascript:void(0);" url="${path}/power/add/{sid_key}-0" title="配置员工权限" target="dialog"><span>配置员工权限</span></a></li>
+				<#if pid!=0>
+				<li><a class="edit" href="javascript:void(0);" url="${path}/power/add/${pid!}-2"target="dialog"><span>配置部门【${partname!}】权限</span></a></li>
+				</#if>
+				<#if orgid!=0>
+				<li><a class="edit" href="javascript:void(0);" url="${path}/power/add/${orgid!}-3"target="dialog"><span>配置机构【${orgname!}】权限</span></a></li>
+				</#if>
+			</ul>
+		</div>
+		<@table layouth="137"/>
+	</div>
+<@paginate rel="powerbox"/>
+</@layout>

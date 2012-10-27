@@ -1,0 +1,122 @@
+<#include "../inc/_layout.html"/>
+<#include "../inc/_nation.html"/>
+<@layout>
+<script type="text/javascript">
+initQueryForm();
+ var swfuploaddir="${root!}/js/swfupload";
+	var swfu= new SWFUpload({
+				// Backend Settings
+				upload_url: "${root}/file/up",
+				post_params: {"upsessionid": "","userp":"loyin"},
+				//上传文件的名称
+                file_post_name: "filedata",
+				file_size_limit : "1 MB",
+				file_types : "*.jpg;*.png",
+				file_types_description : "jpg,png图片",
+				file_upload_limit :1,
+				swfupload_preload_handler : preLoad,
+				swfupload_load_failed_handler : loadFailed,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : function(f,data){
+					eval("var json="+data+";");
+					if(json.suc==true){
+						avatarImg.src=json.msg;
+						photo.value=json.msg;
+					}else{
+						alert(data.json);
+					}
+				},
+				upload_complete_handler : uploadComplete,
+
+				// Button Settings
+				button_image_url : "${root!}/image/SmallSpyGlassWithTransperancy_17x18.png",
+				button_placeholder_id : "upbtn",
+				button_width: 80,
+				button_height: 18,
+				button_text : '<span class="button">上传头像</span>',
+				button_text_style : '.button {font-size: 12pt; }',
+				button_text_top_padding: 0,
+				button_text_left_padding: 18,
+				button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+				button_cursor: SWFUpload.CURSOR.HAND,
+				// Flash Settings
+				flash_url : swfuploaddir+"/swfupload.swf",
+				flash9_url : swfuploaddir+"/swfupload_fp9.swf",
+
+				custom_settings : {
+				//	upload_target : "divFileProgressContainer",
+					thumbnail_height: 500,
+					thumbnail_width: 500,
+					thumbnail_quality: 100
+				},
+				// Debug Settings
+				debug: false
+			});
+</script>
+<div class="pageContent">
+	<form method="post" action="${root!}/employee/save" id="articlefrom"
+		class="pageForm required-validate"
+		onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input name="employee.id" type="hidden" value="${pojo.id!}">
+		<div class="pageFormContent" id="articleSave" layoutH="55">
+			<table class="mytablecls">
+				<tr>
+					<th>部门：</th><td><select name="employee.partmentid" class="combox" val="${pojo.partmentid!}"><@partSelect/></select></td>
+					<td colspan="2" rowspan="4" align="center" valign="middle">
+					<input type="hidden" value="${pojo.photo!}" name="employee.photo" id="photo">
+					<img height="110px" id="avatarImg" src="<#if pojo.photo??>${pojo.photo!}<#else>${root}/image/man.gif</#if>"/>
+						<br><div style="width:60px;border:1px;"><span id="upbtn"></span></div>
+					</td>
+				</tr>
+				<tr>
+					<th>员工编号：</th><td><input class="required" value="${pojo.userno!}" name="employee.userno"/></td>
+				</tr>
+				<tr>
+					<th>姓名：</th><td><input class="required" name="employee.fullname" value="${pojo.fullname!}"></td>
+				</tr>
+				<tr>
+					<th>民族：</th><td><@nation name="employee.nation" val="${pojo.nation!}" nvl=false id=""/></td>
+				</tr>
+				<tr>
+					<th>性别：</th><td><input type="radio" name="employee.gender" <#if pojo.gender??&&pojo.gender=='男'>checked="checked"</#if> value="男">男<input type="radio" name="employee.gender" <#if pojo.gender??&&pojo.gender=='女'>checked="checked"</#if> value="女">女</td>
+					<th>入职日期：</th><td><input type="text" name="employee.worktime" class="date" value="${pojo.worktime!}"><a class="inputDateButton" href="javascript:;">选择</a></td>
+				</tr>
+				<tr>
+					<th>工资：</th><td><input type="text" name="employee.wage" value="${pojo.wage!}">(元/月)</td>
+					<th>身份证：</th><td><input type="text" name="employee.idcard" class="required" value="${pojo.idcard!}"></td>
+				</tr>
+				<tr>
+					<th>生日：</th><td><input type="text" name="employee.birthday" class="date" value="${pojo.birthday!}"><a class="inputDateButton" href="javascript:;">选择</a></td>
+					<th>手机：</th><td><input type="text" name="employee.phone" value="${pojo.phone!}"></td>
+				</tr>
+				<tr>
+					<th>地址：</th><td colspan="3"><input type="text" name="employee.addr" style="width:99%;" value="${pojo.addr!}"></td>
+				</tr>
+				<tr>
+					<th>备注：</th><td colspan="3"><textarea name="employee.remark" style="width:99%;height:50px;">${pojo.remark!}</textarea></td>
+				</tr>
+				<tr><th>简历：</th><td colspan="3"><@xheditor name="employee.resume" id="editresume" width=500 height=400>${pojo.resume!}</@xheditor></td></tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive">
+						<div class="buttonContent">
+							<button type="submit">保存</button>
+						</div>
+					</div></li>
+				<li>
+					<div class="button">
+						<div class="buttonContent">
+							<button type="Button" class="close">关闭</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>
+</@layout>

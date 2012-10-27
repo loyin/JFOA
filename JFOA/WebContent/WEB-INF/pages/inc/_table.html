@@ -1,0 +1,31 @@
+<#macro table layouth="135" width="700" tid="tablexxx">
+<script>
+function checkall${tid!}(ckx){
+	var $ckx=$(ckx);
+	var $cks=$("."+$ckx.attr("for"));
+	var ckxed=$ckx.attr("checked");
+	$.each($cks,function(i,ck){
+		$(ck).attr("checked",ckx.checked);
+	});
+}
+</script>
+<table class="table" id="${tid!}" width="${width}px" layouth="${layouth!}">
+<thead><tr><th width="50px"><input type="checkbox" for="ck_${tid!}" onclick="checkall${tid!}(this);">行号</th>
+<#list collist as t>
+<th>${t!}</th>
+</#list>
+</tr></thead>
+<#if page??&&page.list??>
+<tbody>
+<#list page.list as d>
+<tr target="sid_key" rel="${d.id!}">
+<td><input type="checkbox" name="idds" class="ck_${tid!}" value="${d.id!}">${d_index+1}</td>
+<#list collist as t>
+<td>${d.get(t)!}</td>
+</#list>
+</tr>
+</#list>
+</tbody>
+</#if>
+</table>
+</#macro>

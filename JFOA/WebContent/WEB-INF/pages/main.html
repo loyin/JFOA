@@ -1,0 +1,168 @@
+<#compress><#--用来压缩空白空间和空白的行-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title></title>
+<link href="${root!}/ht/dwz/default/style.css"rel="stylesheet" type="text/css" media="screen" />
+<link href="${root!}/ht/dwz/css/core.css"rel="stylesheet" type="text/css" media="screen" />
+<link href="${root!}/ht/dwz/css/print.css"rel="stylesheet" type="text/css" media="print" />
+<link href="${root!}/ht/webadmin.css"rel="stylesheet" type="text/css" media="screen" />
+<!--[if IE]>
+<link href="${root!}/ht/dwz/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
+<![endif]-->
+<link href="${root!}/xheditor/style.css" rel="stylesheet" />
+<style>
+.mytablecls {
+border-left: 1px solid #C1DAD7;
+border-top: 1px solid #C1DAD7;
+}
+.mytablecls th {
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	padding: 2px 2px 2px 6px;
+}
+.mytablecls td {
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	padding: 2px 2px 2px 6px;
+	height:30px;
+}
+#header{height:85px}
+#leftside, #container, #splitBar, #splitBarProxy{top:90px}
+#navMenu a{text-transform:none;}
+</style>
+<script src="${root!}/js/jquery.min.js"></script>
+<script src="${root!}/js/jquery.cookie.js"></script>
+<script src="${root!}/js/jquery.validate.js"></script>
+<script src="${root!}/js/jquery.bgiframe.js"></script>
+<script src="${root!}/xheditor/xheditor.js"></script>
+<script src="${root!}/js/dwz.min.js"></script>
+<script src="${root!}/js/dwz.regional.zh.js"></script>
+<script src="${root!}/js/web.js"></script>
+<script src="${root!}/js/ZeroClipboard.js"></script>
+<script src="${root!}/js/swfupload/handlers.js"></script>
+<script src="${root!}/js/swfupload/swfupload.js"></script>
+<script>
+var menuType=["导航栏","菜单","按钮"];
+var sysparamType=["菜系","房台类型"];
+	var path = "${root!}";
+	$(function() {
+		DWZ.init("${root!}/ht/dwz/dwz.frag.xml", {
+			loginUrl : "${root!}/loginDialog",
+			loginTitle : "登录", // 弹出登录对话框
+			//		loginUrl:"login.html",	// 跳到登录页面
+			statusCode : {
+				ok : 200,
+				error : 300,
+				timeout : 301
+			}, //【可选】
+			pageInfo : {
+				pageNum : "pageNum",
+				numPerPage : "numPerPage",
+				orderField : "orderField",
+				orderDirection : "orderDirection"
+			}, //【可选】
+			debug : false, // 调试模式 【true|false】
+			callback : function() {
+				initEnv();
+				$("#themeList").theme({
+					themeBase : "${root!}/ht/dwz"
+				}); // themeBase 相对于index页面的主题base路径
+			}
+		});
+		$("#navMenu li:first-child").addClass("selected");
+	});
+</script>
+</head>
+<body scroll="no">
+	<div id="layout">
+		<div id="header">
+			<div class="headerNav">
+				<a class="logo" href="javascript:void(0);">标志</a>
+				<ul class="nav">
+					<li style="color:#B9CCDA;">欢迎,${user.fullname!}[${user.userno}]</li>
+					<li><a href="javascript:void(0);" url="loginDialog" target="dialog" rel="login">重新登录</a></li>
+					<li><a href="javascript:void(0);" onclick="if(confirm('确定要退出系统吗？退出后未保存的数据将丢失！！')==true) return this.href='${root!}/logout';else return false;">退出</a></li>
+				</ul>
+			</div>
+			<#-- navMenu -->
+			<div id="navMenu">
+				<ul>
+				<#list menus as m>
+				<#if (m.menulevel==0)>
+					<li><a href="javascript:;" url="getmenu/${m.id}"><span>${m.name}</span></a></li>
+				</#if>
+				</#list>
+				<li><a href="javascript:;" url="commmenu"><span>常用功能</span></a></li>
+				</ul>
+			</div>
+			
+		</div>
+		<div id="leftside">
+			<div id="sidebar_s">
+				<div class="collapse">
+					<div class="toggleCollapse">
+						<div></div>
+					</div>
+				</div>
+			</div>
+			<div id="sidebar">
+				<div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
+				<#--菜单-->
+				<div class="accordion" fillSpace="sidebar" id="menulan">
+					<#include "getmenu.html">
+				</div>
+			</div>
+		</div>
+		<div id="container">
+			<div id="navTab" class="tabsPage">
+				<div class="tabsPageHeader">
+					<div class="tabsPageHeaderContent">
+						<ul class="navTab-tab">
+							<li tabid="main" class="main"><a href="#"><span class="home_icon">我的主页&nbsp;</span></a></li>
+						</ul>
+					</div>
+					<div class="tabsLeft">left</div>
+					<div class="tabsRight">right</div>
+					<div class="tabsMore">more</div>
+				</div>
+				<ul class="tabsMoreList">
+					<li><a href="javascript:;">我的主页</a></li>
+				</ul>
+				<div class="navTab-panel tabsPageContent layoutBox">
+					<div class="page unitBox">
+						<div class="accountInfo">
+							<div class="alertInfo">
+								
+							</div>
+							<div class="right">
+								<p></p>
+								<p></p>
+							</div>
+							<p><span></span></p>
+							<p></p>
+						</div>
+						<div class="pageFormContent" layoutH="80">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		Copyright&copy; 2012 <a href="http://www.loyin.net" target="_blank">龙影软件</a>Inc. All Rights Reserved. QQ:290238838 Email:290238838@qq.com
+	</div>
+<#--showselectoption 是共用的 START-->
+<div id="showSelectOption" class="showSelectOption">
+<#--（中间层）脱离标准流，绝对定位，拥有一个自动的宽高，不够的话，可以自己再设，_filter:alpha(opacity=0);去除iframe颜色，ie6 中 iframe层级永高于select -->
+<iframe style="position:absolute; top:0px; left:0px; border-style:none;z-index:-1;opacity=0;_filter:alpha(opacity=0);"></iframe>
+<div><ul></ul></div><span class="selectdivclose" title="关闭">&nbsp;</span>
+</div>
+<#--showselectoption 是共用的 END-->
+</body>
+</html>
+</#compress><#--用来压缩空白空间和空白的行-->

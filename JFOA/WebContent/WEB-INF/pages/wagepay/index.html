@@ -1,0 +1,34 @@
+<#include "../inc/_layout.html"/> <@layout>
+<script>
+$.each($("#org_part_tree").find("ul"), function(i, r) {
+var $ul = $(r);
+if ($ul.text() == "\n")$ul.remove();
+});
+</script>
+<div class="pageContent">
+<div layoutH="2"
+style="float: left; overflow: auto; width: 200px; border: solid 1px #CCC; line-height: 21px;">
+<ul class="tree treeFolder" id="org_part_tree">
+<li><a href="javascript:void(0);" url="javascript:void();">机构</a>
+<ul>
+<#list org as o>
+<li><a href="javascript:void(0);" url="${path}/wagepay/list/${o.id!}" target="ajax" rel="empbox">${o.name!}[${o.num!}]</a>
+<ul>
+<#list part as p><#if !p.pid??>
+<li><a href="javascript:void(0);" url="${path}/wagepay/list/${o.id!}-${p.id!}" target="ajax" rel="empbox">${p.name!}[${p.num!}]</a>
+<ul>
+<#list part as p1><#if p1.pid??&&p1.pid=p.id>
+<li><a href="javascript:void(0);" url="${path}/wagepay/list/${o.id!}-${p.id!}-${p1.id!}" target="ajax"
+rel="empbox">${p1.name!}[${p1.num!}]</a></li> </#if> </#list>
+</ul></li>
+</#if>
+</#list>
+</ul></li>
+</#list>
+</ul>
+</li>
+</ul>
+</div>
+<div id="empbox" class="unitBox" style="margin-left: 202px;">
+<#include "list.html"/></div>
+</@layout>

@@ -1,0 +1,93 @@
+<#compress><#--用来压缩空白空间和空白的行-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="${root}/ht/dwz/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${root}/js/jquery.min.js"></script>
+<script type="text/javascript">
+$.ajaxSetup ({
+cache: false
+});
+function changecode(){
+	$("#codeimg").attr("src",'${root}/jpg?id='+Math.random()*10);
+}
+function login(){
+	$form=$("form");
+	var username=$("#username").val();
+	var pwd=$("#pwd").val();
+	var code=$("#code").val();
+	if(username==''||pwd==''||code==''){
+		changecode();
+		alert("有未填写项，请完善输入！");
+	}else{
+		$.ajax({url:"${root}/login",data:$form.serialize(),dataType:'json',
+		success:function(msg){
+		if(msg.stat==100){
+			$form=$("form");
+			$form.attr("action","${root}");
+			$form.attr("onsubmit","");
+			$form.submit();
+		}else{
+			changecode();
+			alert(msg.msg);
+		}
+		},error:function(){changecode();alert("数据提交异常！请检查网络");}});
+	}
+}
+</script>
+</head>
+<body>
+	<div id="login">
+		<div id="login_header">
+			<h1 class="login_logo">
+				<a href="javascript:void(0);"></a>
+			</h1>
+			<div class="login_headerContent">
+				<div class="navList">
+					<ul>
+					</ul>
+				</div>
+				<h2 class="login_title"><img src="${root}/ht/dwz/default/images/login_title.png" /></h2>
+			</div>
+		</div>
+		<div id="login_content">
+			<div class="loginForm">
+				<form method="post">
+					<p>
+						<label>用户名：</label>
+						<input type="text" name="username" id="username" size="20" value="loyin" class="login_input" />
+					</p>
+					<p>
+						<label>密码：</label>
+						<input type="password" name="pwd" id="pwd" size="20" value="123456" class="login_input" />
+					</p>
+					<p>
+						<label>验证码：</label>
+						<input class="code" name="code" id="code" type="text" size="4" />
+						<span><img src="${root}/jpg" id="codeimg" onclick="this.src='${root}/jpg?id='+Math.random()*10"
+						title="点击更新验证码"  width="75" height="24" /></span>
+					</p>
+					<div class="login_bar">
+						<a class="sub" onclick="login();"></a>
+					</div>
+				</form>
+			</div>
+			<div class="login_banner"><img src="${root}/ht/dwz/default/images/login_banner.jpg" /></div>
+			<div class="login_main">
+				<ul class="helpList">
+					
+				</ul>
+				<div class="login_inner">
+					<p></p>
+				</div>
+			</div>
+		</div>
+		<div id="login_footer">
+			Copyright &copy; 2012 <a href="http://www.loyin.net" target="_blank">龙影软件</a> Inc. All Rights Reserved. QQ:290238838 Email:290238838@qq.com
+		</div>
+	</div>
+</body>
+</html>
+</#compress><#--用来压缩空白空间和空白的行-->

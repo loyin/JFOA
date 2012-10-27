@@ -1,0 +1,63 @@
+<#include "inc/_layout.html"/>
+<@layout>
+<script>
+function changecode(){
+	$("#codeimg").attr("src",'${root}/jpg?id='+Math.random()*10);
+}
+function login(){
+	$form=$("#loginform");
+	var username=$("#username",$form).val();
+	var pwd=$("#pwd",$form).val();
+	var code=$("#code",$form).val();
+	if(username==''||pwd==''||code==''){
+		alertMsg.alert("有未填写项，请完善输入！");
+	}else{
+		$.ajax({url:"${root}/login",data:$form.serialize(),dataType:'json',
+		success:function(msg){
+		if(msg.stat==100){
+		/*	$form=$("form");
+			$form.attr("action","${root}/webadmin");
+			$form.attr("onsubmit","");
+			$form.submit();*/
+			$("#loginclose").click();
+		}else{
+			changecode();
+			alertMsg.alert(msg.msg);
+		}
+		},error:function(){changecode();alertMsg.alert("数据提交异常！请检查网络");}});
+	}
+}
+</script>
+<div class="pageContent">
+		<form method="post" id="loginform">
+			<div class="pageFormContent" id="articleSave" layoutH="55">
+				<p>
+					<label>账号：</label> <input type="text" name="username"/>
+				</p>
+				<p>
+					<label>密码：</label><input type="password" name="pwd">
+				</p>
+				<p>
+					<label>验证码：</label> <input class="code" name="code" id="code" type="text" size="4" />
+						<span><img src="${root}/jpg" id="codeimg" onclick="this.src='${root}/jpg?id='+Math.random()*10"
+						title="点击更新验证码"  width="75" height="24" /></span>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button onclick="login();return false;">登录</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" id="loginclose" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

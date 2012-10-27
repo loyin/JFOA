@@ -1,0 +1,7 @@
+.ajaxselect{background: url("images/select.png") right bottom no-repeat;}
+.selectdivclose{background: url("images/cancel.png") no-repeat;float:right;width:16px;height:16px;cursor:pointer;margin:5px;}
+.showSelectOption{border:1px #eee solid;width:200px;padding:0px;position:absolute;z-index:200;display:none;background-color:#fff;}
+.showSelectOption ul{list-style:none;margin:0px;padding:0px;}
+.showSelectOption li{padding:5px;list-style:none;text-align:left;}
+.showSelectOption .over{background-color:#eee;}
+.showSelectOption .out{background-color:#fff;}

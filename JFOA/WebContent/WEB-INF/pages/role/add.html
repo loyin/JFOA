@@ -1,0 +1,40 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script>
+initQueryForm();
+</script>
+<div class="pageContent">
+		<form method="post" action="${root!}/role/save" id="articlefrom" class="pageForm required-validate"onsubmit="return validateCallback(this, dialogAjaxDone);">
+			<input name="role.id" type="hidden" value="${pojo.id!}">
+			<div class="pageFormContent" id="articleSave" layoutH="55">
+	<p>
+		<label>
+			角色名称
+		</label>
+		<input type="text" name="role.name" value="${pojo.name!}" class="required">
+	</p>
+	<p>
+		<label>
+			备注
+		</label>
+		<input type="text" name="role.remark" value="${pojo.remark!}">
+	</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">保存</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

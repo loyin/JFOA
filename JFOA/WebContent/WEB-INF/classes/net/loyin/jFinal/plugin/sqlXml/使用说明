@@ -1,0 +1,6 @@
+在业务表关系复杂，数据量大的时候，总的说手写sql是比较好的方式。但是当sql语句较为复杂一行代码很难容纳下的时候，
+在没有多行字符串的java世界就相当蛋疼。mybatis这类可以在xml中管理sql语句的框架是一种比较好的选择。
+
+ 简单使用：
+Model中调用  
+List<MobileBind> mobileBinds = find(SqlManager.sql("mobileBind.findByStudentMobile"), studentMobile);

@@ -1,0 +1,13 @@
+.tmallfocus * {margin:0; padding:0;}
+/* tmall tmallfocus */
+.tmallfocus {width:780px; height:420px; overflow:hidden; position:relative;}
+.tmallfocus ul {height:420px; position:absolute;}
+.tmallfocus ul li {float:left; width:780px; height:420px; overflow:hidden; position:relative; background:#000;}
+.tmallfocus ul li div {position:absolute; overflow:hidden;}
+.tmallfocus ul li div img{border:0;}
+.tmallfocus .btnBg {position:absolute; width:780px; height:40px; left:0; bottom:0; background:#000;}
+.tmallfocus .tmbtn {position:absolute; width:770px; height:30px; left:0; bottom:5px; padding-left:10px;text-align:center;}
+.tmallfocus .tmbtn span {display:inline-block; _display:inline; _zoom:1; width:30px; height:30px; line-height:24px; text-align:center; font-size:20px; font-family:"Microsoft YaHei",SimHei; margin-right:10px; cursor:pointer; color:#fff;background:#716564;line-height:30px; 
+border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;-khtml-border-radius:15px;
+}
+.tmallfocus .tmbtn span.on {background:#b91919; color:#fff;}

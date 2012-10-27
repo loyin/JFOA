@@ -1,0 +1,48 @@
+<#assign path="${root}">
+<div class="accordionHeader">
+<h2>
+<span>Folder</span>常用菜单
+</h2>
+</div>
+<div class="accordionContent">
+<ul class="tree treeFolder">
+<li><a href="javascript:void(0);" url="${path}/employee/pwd" target="dialog" rel="uppwd">修改密码</a></li>
+<li><a href="javascript:void(0);" url="${path}/monitor" target="navTab" rel="monitor">系统监控</a></li>
+<li><a href="javascript:void(0);" url="${path}/calender" target="navTab" rel="calender">我的日程</a></li>
+</ul>
+</div>
+<#--权限菜单-->
+<#list menus as menu0>
+<#if (menu0.menulevel==0)>
+<div class="accordionHeader">
+<h2><span>Folder</span>${menu0.name }</h2>
+</div>
+<div class="accordionContent">
+<ul class="tree treeFolder">
+<#list menus as menu1>
+<#if (menu1.pid!0)==menu0.id>
+<li>
+<#if menu1.url??&&menu1.type==0>
+<a href="javascript:void(0);" url="${path}/${menu1.url}" target="<#if menu1.target??&& menu1.target==1>dialog<#else>navTab</#if>" rel="${menu1.rel!(menu1.url!)}">${menu1.name!}</a>
+</#if>
+<#if (!menu1.url??)&&menu1.type==0>
+<a>${menu1.name }</a>
+<ul>
+<#list menus as menu2>
+<#if menu2.type==0 &&(menu2.pid??&&menu2.pid==menu1.id)>
+<li>
+<a href="javascript:void(0);" url="${path}/${menu2.url!}" target="<#if menu2.target??&& menu2.target==1>dialog<#else>navTab</#if>" 
+rel="${menu2.rel!(menu2.url!)}"
+>${menu2.name! }</a>
+</li>
+</#if>
+</#list>
+</ul>
+</#if>
+</li>
+</#if>
+</#list>
+</ul>
+</div>
+</#if>
+</#list>

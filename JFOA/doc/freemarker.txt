@@ -1,0 +1,78 @@
+freemarker对null的处理 无非就这几种 
+1 提供默认值 
+<#if mouse?> 
+Mouse found 
+<#else> 
+也可以直接${mouse?if_exists} 
+<#if user.age??> 
+//TO DO 
+</#if> 
+
+2.忽略null值 
+假设前提：userName为null 
+${userName}   error 
+${userName!}  空白 
+${userName!'tivon'}  tivon 
+
+假设前提：user.name为null 
+${user.name}，异常 
+${(user.name)!},显示空白 
+${user.name!'vakin'}，若user.name不为空则显示本身的值，否则显示vakin 
+${user.name?default('vakin')}，同上 
+${user.name???string(user.name,'vakin')},同上 
+
+3 list 
+<#list userList as user> 
+… 
+</#list> 
+List指令还隐含了两个循环变量： 
+user_index:当前迭代项在所有迭代项中的位置，是数字值。 
+user_has_next:用于判断当前迭代项是否是所有迭代项中的最后一项。 
+这2个值也可以控制 null 或者0的出现。 
+
+4<#escape x as x!""></#escape>可以对所有的变量进行空值处理，这里是全部替换为空字符串。当然也可以替换为其它字符串。 
+如果其中某些变量不需要这种替换，可以加入<#noescape></#noescape>标签。 
+
+5 这种为全局配置方法 
+
+配置classic_compatible=true可以满足一般需要。默认情况变量为null则替换为空字符串，如果需要自定义，写上${empty!"EmptyValue of fbysss"}的形式即可 
+
+a.通过Configuration设置。Configuration cfg = new Configuration(); cfg.setClassicCompatible(true);//设置属性 
+
+b.通过Eviroment设置。 
+   Environment env = template.createProcessingEnvironment(root, out); 
+   env.setClassicCompatible(true); 
+
+c.通过ftl设置：在ftl前加入<!--#setting classic_compatible=true-->; 
+
+d.通过Spring配置文件设置 
+<bean id="freemarkerConfig" 
+    class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"> 
+  <property name="freemarkerSettings"> 
+    <props> 
+      <prop key="classic_compatible">true</prop> 
+    </props> 
+  </property> 
+</bean> 
+
+e.class目录下添加freemarker.properties文件：加入classic_compatible=true 
+(需要struts2或spring) 
+
+举一反三，其他属性也可以用类似方法进行设置。 
+
+补充知识点： 
+Freemarker中对List进行排序 
+通常我们的排序操作都是通过DAO层来实现的，如果我们想随时更改我们的排序，那么就必须修改我们的DAO层代码，确实不方便。但Freemarker为我们提供了这样的排序方法，解决了这个问题。 
+1. sort升序排序函数 
+sort对序列(sequence)进行排序，要求序列中的变量必须是：字符串（按首字母排序）,数字，日期值。 
+<#list list?sort as l>…</#list> 
+
+2. sort_by函数 
+sort_by有一个参数,该参数用于指定想要排序的子变量，排序是按照变量对应的值进行排序,如： 
+<#list userList?sort_by("age") as user>…</#list> 
+age是User对象的属性，排序是按age的值进行的。 
+3. reverse降序排序函数 
+    <#list list? reverse as l>…</#list> 
+     reverse使用同sort相同。reverse还可以同sort_by一起使用 
+       如：想让用户按年龄降序排序，那么可以这个样写 
+<#list userList?sort_by(“age”)?reverse as user>…</#list> 

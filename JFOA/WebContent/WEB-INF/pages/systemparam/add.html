@@ -1,0 +1,58 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script>
+$(function (){
+	$.each(sysparamType,function(i,row){
+		$("#param_edit_type").append("<option value='"+i+"'>"+row+"</option>");
+	});
+	initQueryForm();
+});
+</script>
+<div class="pageContent">
+		<form method="post" action="${root!}/systemparam/save" id="articlefrom" class="pageForm required-validate"onsubmit="return validateCallback(this, dialogAjaxDone);">
+			<input name="systemparam.id" type="hidden" value="${pojo.id!}">
+			<div class="pageFormContent" id="articleSave" layoutH="55">
+	<p>
+		<label>
+			参数类型:
+		</label>
+		<select class="combox" id="param_edit_type" name="systemparam.type" class="required" val="${pojo.type!}"></select>
+	</p>
+	<p>
+		<label>
+			参数名称
+		</label>
+		<input type="text" name="systemparam.name" value="${pojo.name!}" class="required">
+	</p>
+	<p>
+		<label>
+			参数值
+		</label>
+		<input type="text" name="systemparam.val" value="${pojo.val!}" class="required">
+	</p>
+	<p>
+		<label>
+			备注
+		</label>
+		<input type="text" name="systemparam.remark" value="${pojo.remark!}">
+	</p>
+	
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">保存</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

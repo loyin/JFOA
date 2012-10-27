@@ -1,0 +1,30 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<div class="pageContent">
+		<form method="post" action="${root!}/platform/save" id="articlefrom" class="pageForm required-validate"onsubmit="return validateCallback(this, dialogAjaxDone);">
+			<div class="pageFormContent" id="articleSave" layoutH="55">
+	<#list p as p1>
+	<p>
+		<label>${p1.get("pname")}</label>
+		<input type="text" name="${p1.get("key")}" value="${p1.get("value")!}">
+	</p>
+	</#list>
+	</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">保存</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

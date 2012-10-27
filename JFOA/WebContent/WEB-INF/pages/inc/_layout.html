@@ -1,0 +1,12 @@
+<#include "_table.html"/>
+<#include "_page_dwz.html"/>
+<#include "_searchBar.html"/>
+<#include "../../tagftl/xheditor.html"/>
+<#assign path="${root!}">
+<#macro layout >
+<div class="page">
+<#compress><#--用来压缩空白空间和空白的行-->
+<#nested>
+</#compress>
+</div>
+</#macro>

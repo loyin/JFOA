@@ -1,0 +1,47 @@
+<#include "../inc/_layout.html"/> <@layout>
+<script>
+$.each($("#org_part_tree_power").find("ul"), function(i, r) {
+var $ul = $(r);
+if ($ul.text() == "\n")$ul.remove();
+});
+</script>
+<div class="pageContent">
+<div layoutH="2"
+style="float: left; overflow: auto; width: 200px; border: solid 1px #CCC; line-height: 21px;">
+<ul class="tree treeFolder" id="org_part_tree_power">
+<li><a href="javascript:void(0);">机构</a>
+<ul>
+<#list org as o>
+<li><a href="javascript:void(0);" url="${path}/power/list/${o.id!}" target="ajax" rel="powerbox">${o.name!}[${o.num!}]</a>
+<ul>
+<#list part as p><#if !p.pid??>
+<li><a href="javascript:void(0);" url="${path}/power/list/${o.id!}-${p.id!}" target="ajax" rel="powerbox">${p.name!}[${p.num!}]</a>
+<ul>
+<#list part as p1><#if p1.pid??&&p1.pid=p.id>
+<li><a href="javascript:void(0);" url="${path}/power/list/${o.id!}-${p.id!}-${p1.id!}" target="ajax"
+rel="powerbox">${p1.name!}[${p1.num!}]</a>
+<ul>
+<#list part as p2><#if p2.pid??&&p2.pid=p1.id>
+<li><a href="javascript:void(0);" url="${path}/power/list/${o.id!}-${p1.id!}-${p2.id!}" target="ajax"
+rel="powerbox">${p2.name!}[${p2.num!}]</a></li></#if></#list>
+</ul>
+</li></#if></#list>
+</ul></li>
+</#if>
+</#list>
+</ul></li>
+</#list>
+</ul>
+</li>
+<li>
+<a href="javascript:void(0);" url="javascript:void();">角色</a>
+<ul>
+<#list rolelist as r>
+<li><a href="javascript:void(0);" url="${path}/power/add/${r.id!}-1" target="dialog" rel="powerdialog" title="配置角色【${r.name!}】权限">${r.name!}</a></li>
+</#list>
+</ul>
+</li>
+</ul>
+</div>
+<div id="powerbox" class="unitBox" style="margin-left: 202px;"><#include "list.html"/></div>
+</@layout>

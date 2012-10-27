@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>测试用</title>
+<script src="js/jquery.min.js"></script>
+<script src="flexpaper/1.js"></script>
+</head>
+<body>
+<a id="sss" style="width:800px;height:600px;display:block"></a>
+<section>
+<textarea id="msgs"></textarea><br>
+<input type="button" value="显示一下" id="tip">
+</section>
+
+</body>
+<script type="text/javascript">
+var fp = new FlexPaperViewer(
+		 'flexpaper/FlexPaperViewer',//swf
+		 'sss', { config : {
+		 SwfFile : escape('upload/file/2.swf'),//pdf转化swf
+		 Scale : 0.8, 
+		 ZoomTransition : 'easeOut',
+		 ZoomTime : 1,
+		 ZoomInterval : 0.2,
+		 FitPageOnLoad : true,
+		 FitWidthOnLoad : false,
+		 FullScreenAsMaxWindow : false,
+		 ProgressiveLoading : false,
+		 MinZoomSize : 0.2,
+		 MaxZoomSize : 5,
+		 SearchMatchAll : false,
+		 InitViewMode : 'Portrait',
+		 PrintPaperAsBitmap : false,
+		 
+		 ViewModeToolsVisible : true,
+		 ZoomToolsVisible : true,
+		 NavToolsVisible : true,
+		 CursorToolsVisible : true,
+		 SearchToolsVisible : true,
+			 localeChain: 'zh_CN'
+		 }});
+function DN() {}//装逼用，大家可以不用这种！
+DN.prototype.isDN = function() {
+ if(window.webkitNotifications){return true}else{return false};
+}
+DN.prototype.Notify = function(icon, title, content) {
+  if (window.webkitNotifications.checkPermission() == 0) {//检测有木同意本域使用提醒
+if(content==""){alert("亲，表调戏我嘛··");return;};
+    var tip = window.webkitNotifications.createNotification(icon="http://my.oschina.net/img/favicon.ico", title, content);
+tip.show();
+    return true;
+  }
+  window.webkitNotifications.requestPermission();//提示是否允许桌面提醒
+  return false;
+}
+$(function() {
+  var tip = new DN();
+  if (!tip.isDN()) {
+   alert("小样儿，你这浏览器还想玩提醒？");
+    return;
+  }
+  $("#tip").click(function() {
+  	var content=$('#msgs').val();
+    tip.Notify("true", "OSC铂金小猪",content);
+  });
+});
+
+</script>
+</html>

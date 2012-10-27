@@ -1,0 +1,1 @@
+pdf2swf.exe 存放pdf文件路径 -o 存放swf文件名称.swf -f -T 9 -t -s storeallcharacters

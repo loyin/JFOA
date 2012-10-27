@@ -1,0 +1,54 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<div class="pageContent">
+		<div class="pageFormContent" id="articleSave" layoutH="55">
+			<table class="mytablecls">
+				<tr>
+					<th>部门：</th><td>${org.name!}[${org.num!}]-${part.name!}[${part.num!}]</td>
+					<td colspan="2" rowspan="4" align="center" valign="middle">
+					<img height="110px" id="avatarImg" src="<#if pojo.photo??>${pojo.photo!}<#else>${root}/image/man.gif</#if>"/>
+					</td>
+				</tr>
+				<tr>
+					<th>员工编号：</th><td>${pojo.userno!}</td>
+				</tr>
+				<tr>
+					<th>姓名：</th><td>${pojo.fullname!}</td>
+				</tr>
+				<tr>
+					<th>民族：</th><td>${pojo.nation!}</td>
+				</tr>
+				<tr>
+					<th>性别：</th><td>${pojo.gender!}</td>
+					<th>入职日期：</th><td>${pojo.worktime!}</td>
+				</tr>
+				<tr>
+					<th>工资：</th><td>${pojo.wage!}(元/月)</td>
+					<th>身份证：</th><td>${pojo.idcard!}</td>
+				</tr>
+				<tr>
+					<th>生日：</th><td>${pojo.birthday!}</td>
+					<th>手机：</th><td>${pojo.phone!}</td>
+				</tr>
+				<tr>
+					<th>地址：</th><td colspan="3">${pojo.addr!}</td>
+				</tr>
+				<tr>
+					<th>备注：</th><td colspan="3">${pojo.remark!}</td>
+				</tr>
+				<tr><th>简历：</th><td colspan="3">${pojo.resume!}</td></tr>
+			</table>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li>
+					<div class="button">
+						<div class="buttonContent">
+							<button type="Button" class="close">关闭</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+</div>
+</@layout>

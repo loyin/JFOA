@@ -1,0 +1,55 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script>
+function repwd(){
+	$form=$("#pwdform");
+	var oldpwd=$("#oldpwd",$form).val();
+	var pwd1=$("#pwd1",$form).val();
+	var pwd2=$("#pwd2",$form).val();
+	if(oldpwd==''||pwd1==''||pwd2==''){
+		alertMsg.error("有未填写项，请完善输入！");
+	}else{
+		if(pwd1!=pwd2){
+			alertMsg.warn("两次输入新密码不正确！");
+			return;
+		}else if(pwd1==oldpwd){
+			alertMsg.warn("输入的新密码不能与旧密码相同！");
+			return;
+		}
+		$.ajax({url:"${root}/employee/savepwd",type:'POST',data:$form.serialize(),dataType:'json',
+		success:function(msg){
+			if(msg.statusCode==100){
+				alertMsg.info(msg.message);
+			}else{
+				alertMsg.warn(msg.message);
+			}
+		},error:function(){alertMsg.error("数据提交异常！请检查网络");}});
+	}
+}
+</script>
+<div class="pageContent">
+		<form method="post" id="pwdform" onsubmit="return false;">
+			<div class="pageFormContent" layoutH="55">
+				<p>
+					<label>旧密码：</label> <input type="text" name="oldpwd" id="oldpwd"/>
+				</p>
+				<p>
+					<label>新密码：</label><input type="password" name="pwd" id="pwd1">
+				</p>
+				<p>
+					<label>再输入：</label><input type="password" id="pwd2">
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button onclick="repwd();return false;">修改</button>
+							</div>
+						</div></li>
+					<li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

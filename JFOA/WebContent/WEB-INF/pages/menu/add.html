@@ -1,0 +1,89 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<script>
+	$.each(menuType,function(i,row){
+		$("#menu_edit_type").append("<option value='"+i+"'>"+row+"</option>");
+	});
+	initQueryForm();
+</script>
+<div class="pageContent">
+		<form method="post" action="${root!}/menu/save" id="articlefrom" class="pageForm required-validate"onsubmit="return validateCallback(this, dialogAjaxDone);">
+			<input name="menu.id" type="hidden" value="${pojo.id!}">
+			<input name="menu.pid" type="hidden" value="${pojo.pid!0}">
+			<div class="pageFormContent" id="articleSave" layoutH="55">
+	<p>
+		<label>
+			菜单级别:
+		</label>
+		<input type="text" name="menu.menulevel" value="${pojo.menulevel!0}" class="required digits">
+	</p>
+	<p>
+		<label>
+			菜单类型:
+		</label>
+		<select class="combox" id="menu_edit_type" name="menu.type" class="required" val="${pojo.type!}"></select>
+	</p>
+	<p>
+		<label>
+			显示方式:
+		</label>
+		<select class="combox" name="menu.target" class="required" val="${pojo.target!}">
+		<option value="0">tab页</option>
+		<option value="1">弹出窗口</option>
+		</select>
+	</p>
+	<p>
+		<label>
+			菜单名称
+		</label>
+		<input type="text" name="menu.name" value="${pojo.name!}" class="required">
+	</p>
+	<p>
+		<label>
+			URL
+		</label>
+		<input type="text" name="menu.url" value="${pojo.url!}">
+	</p>
+	<p>
+		<label>
+			页面编码
+		</label>
+		<input type="text" name="menu.safecode" value="${pojo.safecode!}">
+	</p>
+	<p>
+		<label>
+			rel
+		</label>
+		<input type="text" name="menu.rel" value="${pojo.rel!}">
+	</p>
+	<p>
+		<label>
+			图标
+		</label>
+		<input type="text" name="menu.icon" value="${pojo.icon!}">
+	</p>
+	<p>
+		<label>
+			排序号
+		</label>
+		<input type="text" name="menu.ordernum" value="${pojo.ordernum!0}" class="required digits">
+	</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">保存</button>
+							</div>
+						</div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="Button" class="close">关闭</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</@layout>

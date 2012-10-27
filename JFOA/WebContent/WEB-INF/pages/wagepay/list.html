@@ -1,0 +1,39 @@
+<#include "../inc/_layout.html"/>
+<@layout>
+<div class="pageHeader">
+		<form action="${path}/wagepay/list" method="post" id="pagerForm"
+			onsubmit="return divSearch(this,'empbox')">
+			<input type="hidden" name="pageNum" value="${page.pageNumber!}" /> <input
+				type="hidden" name="numPerPage" value="${page.pageSize!}" />
+			<div class="searchBar">
+				<ul class="searchContent">
+					<li>
+						<label>账号</label>
+						<input type="text" name="userno" value="${userno!}">
+					</li>
+					<li>
+						<label>姓名</label>
+						<input type="text" name="fullname" value="${fullname!}">
+					</li>
+				</ul>
+				<@searchBar/>
+			</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="javascript:void(0);" url="${path}/wagepay/add/${orgid!0}-${partid!0}" title="添加员工信息"
+					target="dialog" rel="newwagepay"><span>添加</span></a></li>
+				<li><a class="edit" href="javascript:void(0);" url="${path}/wagepay/add/${orgid!0}-${partid!0}-{sid_key}"
+					title="修改员工信息" target="dialog"><span>修改</span>
+				</a></li>
+				<li class="line">line</li>
+				<li><a class="delete" href="javascript:void(0);" url="${path}/wagepay/del/{sid_key}"
+					title="确定要删除该用户吗？" target="ajaxTodo"><span>删除</span> </a></li>
+			</ul>
+		</div>
+		<@table layouth="137"/>
+	</div>
+<@paginate rel="empbox"/>
+</@layout>
