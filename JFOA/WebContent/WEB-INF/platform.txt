@@ -1,7 +1,1 @@
-{"icon":{"key":"icon","pname":"图标","value":"logo.ico","paixu":"3"}
-,"cmpname":{"key":"cmpname","pname":"公司名称","value":"宁波市名易网络科技有限公司","paixu":"0"}
-,"logo":{"key":"logo","pname":"LOGO","value":"logo.png","paixu":"2"}
-,"address":{"key":"address","pname":"地址","value":"浙江省宁波市马园路38弄博洋丽景205室","paixu":"1"}
-,"tel":{"key":"tel","pname":"电话","value":"0574-87171818","paixu":"4"}
-,"fax":{"key":"fax","pname":"传真","value":"0574-87176996","paixu":"5"}
-}
+{"icon":{"key":"icon","pname":"图标","value":"logo.ico","paixu":"3"},"cmpname":{"key":"cmpname","pname":"公司名称","value":"宁波市名易网络科技有限公司","paixu":"0"},"logo":{"key":"logo","pname":"LOGO","value":"logo.png","paixu":"2"},"address":{"key":"address","pname":"地址","value":"浙江省宁波市马园路38弄博洋丽景205室","paixu":"1"},"tel":{"key":"tel","pname":"电话","value":"0574-87171818","paixu":"4"},"fax":{"key":"fax","pname":"传真","value":"0574-87176996","paixu":"5"}}

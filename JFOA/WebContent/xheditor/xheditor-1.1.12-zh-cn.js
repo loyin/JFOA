@@ -120,7 +120,7 @@ var xheditor=function(textarea,options)
 	//如需删除关于按钮，请往官方网站购买商业授权：http://xheditor.com/service
 	//在未购买商业授权的情况下私自去除xhEditor的版权信息，您将得不到官方提供的任何技术支持和BUG反馈服务，并且我们将对您保留法律诉讼的权利
 	//请支持开源项目
-	if(!settings.tools.match(/(^|,)\s*About\s*(,|$)/i))settings.tools+=',About';
+	//if(!settings.tools.match(/(^|,)\s*About\s*(,|$)/i))settings.tools+=',About';
 	settings.tools=settings.tools.split(',');
 	if(settings.editorRoot)editorRoot=settings.editorRoot;
 	if(bAir===false)editorRoot=getLocalUrl(editorRoot,'abs');
@@ -2186,7 +2186,7 @@ var xheditor=function(textarea,options)
 	function returnFalse(){return false;}
 }
 
-xheditor.settings={skin:'default',tools:'full',clickCancelDialog:true,linkTag:false,internalScript:false,inlineScript:false,internalStyle:true,inlineStyle:true,showBlocktag:false,forcePtag:true,upLinkExt:"zip,rar,txt,doc,docx,xls,xlsx,pdf,chm,ppt",upImgExt:"jpg,jpeg,gif,png",upFlashExt:"swf",upFlvExt:"flv",upMediaExt:"wmv,avi,wma,mp3,mid",modalWidth:350,modalHeight:220,modalTitle:true,defLinkText:'点击打开链接',layerShadow:3,emotMark:false,upBtnText:'上传',cleanPaste:2,hoverExecDelay:100,html5Upload:true,upMultiple:99};
+xheditor.settings={skin:'default',tools:'full',clickCancelDialog:true,linkTag:false,internalScript:false,inlineScript:false,internalStyle:true,inlineStyle:true,showBlocktag:false,forcePtag:false,upLinkExt:"zip,rar,txt,doc,docx,xls,xlsx,pdf,chm,ppt",upImgExt:"jpg,jpeg,gif,png",upFlashExt:"swf",upFlvExt:"flv",upMediaExt:"wmv,avi,wma,mp3,mid",modalWidth:350,modalHeight:220,modalTitle:true,defLinkText:'点击打开链接',layerShadow:3,emotMark:false,upBtnText:'上传',cleanPaste:2,hoverExecDelay:100,html5Upload:true,upMultiple:99};
 window.xheditor=xheditor;
 
 $(function(){

@@ -11,8 +11,8 @@ initQueryForm();
 				//上传文件的名称
                 file_post_name: "filedata",
 				file_size_limit : "1 MB",
-				file_types : "*.jpg;*.png",
-				file_types_description : "jpg,png图片",
+				file_types : "*.jpg;*.png;*.jpeg'*.bmp",
+				file_types_description : "bmp,jpeg,jpg,png图片",
 				file_upload_limit :1,
 				swfupload_preload_handler : preLoad,
 				swfupload_load_failed_handler : loadFailed,
@@ -67,7 +67,7 @@ initQueryForm();
 					<th>部门：</th><td><select name="employee.partmentid" class="combox" val="${pojo.partmentid!}"><@partSelect/></select></td>
 					<td colspan="2" rowspan="4" align="center" valign="middle">
 					<input type="hidden" value="${pojo.photo!}" name="employee.photo" id="photo">
-					<img height="110px" id="avatarImg" src="<#if pojo.photo??>${pojo.photo!}<#else>${root}/image/man.gif</#if>"/>
+					<img height="110px" id="avatarImg" src="<#if pojo.photo??>${pojo.photo!}<#else>${root!}/image/man.gif</#if>"/>
 						<br><div style="width:60px;border:1px;"><span id="upbtn"></span></div>
 					</td>
 				</tr>
@@ -98,7 +98,7 @@ initQueryForm();
 				<tr>
 					<th>备注：</th><td colspan="3"><textarea name="employee.remark" style="width:99%;height:50px;">${pojo.remark!}</textarea></td>
 				</tr>
-				<tr><th>简历：</th><td colspan="3"><@xheditor name="employee.resume" id="editresume" width=500 height=400>${pojo.resume!}</@xheditor></td></tr>
+				<tr><th>简历：</th><td colspan="3"><@xheditor name="employee.resume" id="editresume" width=500 height=400 allowupload=1 mini=0>${pojo.resume!}</@xheditor></td></tr>
 			</table>
 		</div>
 		<div class="formBar">

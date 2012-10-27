@@ -1,8 +1,9 @@
 package net.loyin.controller;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,11 @@ import net.loyin.jFinal.anatation.RouteBind;
 import com.google.gson.Gson;
 import com.jfinal.aop.Before;
 
+/***
+ * 平台相关设置及管理
+ * @author loyin
+ * 2012-09-20
+ */
 @RouteBind(path = "/platform")
 @Before({ ManagerPowerInterceptor.class })
 @PowerBind
@@ -26,10 +32,13 @@ public class PlatformController extends BaseController {
 
 	}
 	public static Map<String, Map<String,String>> p = new HashMap<String, Map<String,String>>();
+	@SuppressWarnings("unchecked")
 	public void set() {
 		try {
 			String path = this.getClass().getResource("/").getPath().replace("classes/", "platform.txt");
-			BufferedReader reader = new BufferedReader(new FileReader(path));
+			System.out.println("配置文件："+path.substring(1));
+			InputStreamReader isr=new InputStreamReader(new FileInputStream(path.substring(1)), "utf-8");
+			BufferedReader reader = new BufferedReader(isr);
 			String line;
 			StringBuffer json=new StringBuffer();
 			while ((line = reader.readLine()) != null) {

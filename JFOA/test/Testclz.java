@@ -1,8 +1,7 @@
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.gson.Gson;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
 
 public class Testclz {
@@ -27,10 +26,10 @@ public class Testclz {
 		}catch(Exception e){
 			e.printStackTrace();
 		}*/
-		/*String classpath=Testclz.class.getResource("").getPath();
+		String classpath=Testclz.class.getResource("").getPath();
 		String libDir=classpath.replace("classes", "lib");
 		File libDirf=new File(libDir);
-		StringBuffer cmd=new StringBuffer("java -classpath \"");
+		StringBuffer cmd=new StringBuffer("rhc java -classpath \"");
 		for(String f:libDirf.list()){
 			if(f.endsWith(".jar")){
 				cmd.append("../lib/");
@@ -39,26 +38,13 @@ public class Testclz {
 			}
 		}
 		cmd.append("\" Server");
-		System.out.print(cmd);
-		while(true){
-			try{
-				Thread th=new Thread();
-				th.sleep(99999L);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}*/
-		
-		Gson gson=new Gson();
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("webname", "sfdafa");
-		map.put("validcode",false);
-		String jsonstr=gson.toJson(map);
-		System.out.println(jsonstr);
-		Map<String,Object> map2= gson.fromJson(jsonstr, map.getClass());
-		System.out.println("=================");
-		System.out.println(gson.toJson(map2));
-		
+		try{
+			OutputStreamWriter out=new OutputStreamWriter(new FileOutputStream(classpath+"/run.bat"),"UTF-8");
+			out.write(cmd.toString());
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }
