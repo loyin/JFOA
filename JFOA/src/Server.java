@@ -3,7 +3,6 @@ import com.jfinal.core.JFinal;
 /**
  * 服务器启动管理
  * @author loyin
- *
  * 2012-10-21
  */
 public class Server {
@@ -18,6 +17,7 @@ public class Server {
 			}catch(Exception e){}
 		}
 		try{
+			Testclz.main(args);
 			JFinal.start(webAppDir.substring(1), port,content, 10);
 		}catch(Exception e){e.printStackTrace();}
 	}

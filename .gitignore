@@ -1,5 +1,7 @@
 *.class
-
+*.dll
+*.exe
 # Package Files #
 *.war
 *.ear
+

@@ -26,7 +26,7 @@ public class Testclz {
 		}catch(Exception e){
 			e.printStackTrace();
 		}*/
-		String classpath=Testclz.class.getResource("").getPath();
+		/*String classpath=Testclz.class.getResource("").getPath();
 		String libDir=classpath.replace("classes", "lib");
 		File libDirf=new File(libDir);
 		StringBuffer cmd=new StringBuffer("rhc java -classpath \"");
@@ -37,14 +37,16 @@ public class Testclz {
 				cmd.append(";");
 			}
 		}
-		cmd.append("\" Server");
+		cmd.append("\" -agentlib:classloader Server");
 		try{
 			OutputStreamWriter out=new OutputStreamWriter(new FileOutputStream(classpath+"/run.bat"),"UTF-8");
 			out.write(cmd.toString());
 			out.close();
 		}catch(Exception e){
 			e.printStackTrace();
-		}
+		}*/
+		
+		System.out.println("正常调用");
 	}
 
 }
