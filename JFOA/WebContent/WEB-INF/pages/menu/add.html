@@ -13,19 +13,19 @@
 			<div class="pageFormContent" id="articleSave" layoutH="55">
 	<p>
 		<label>
-			菜单级别:
+			菜单级别
 		</label>
 		<input type="text" name="menu.menulevel" value="${pojo.menulevel!0}" class="required digits">
 	</p>
 	<p>
 		<label>
-			菜单类型:
+			类别
 		</label>
 		<select class="combox" id="menu_edit_type" name="menu.type" class="required" val="${pojo.type!}"></select>
 	</p>
 	<p>
 		<label>
-			显示方式:
+			显示方式
 		</label>
 		<select class="combox" name="menu.target" class="required" val="${pojo.target!}">
 		<option value="0">tab页</option>
@@ -67,6 +67,10 @@
 			排序号
 		</label>
 		<input type="text" name="menu.ordernum" value="${pojo.ordernum!0}" class="required digits">
+	</p>
+	<p>
+	<label>备注</label>
+	<textarea rows="2" name="menu.remark" cols="20">${pojo.remark!}</textarea>
 	</p>
 			</div>
 			<div class="formBar">

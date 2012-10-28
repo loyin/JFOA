@@ -87,8 +87,8 @@ public class PowerContraller extends BaseController {
 			setAttr("objname",Organization.dao.findById(objid).get("name"));
 			break;
 		}
-		this.setAttr("list", Db.find("select id,pid,name 名称,type 类别,menulevel 级别,ordernum 排序,icon 图标  from  menu  order by menulevel asc,ordernum asc"));
-		this.setAttr("collist", new String[]{"名称","类别","排序","图标"});
+		this.setAttr("list", Db.find("select id,pid,name 名称,type 类别,menulevel 级别,ordernum 排序,icon 图标,remark 备注  from  menu  order by menulevel asc,ordernum asc"));
+		this.setAttr("collist", new String[]{"名称","类别","图标","备注"});
 		setAttr("powerlist",powerlist);
 		setAttr("objid",objid);
 		setAttr("type",c);

@@ -62,7 +62,7 @@ initQueryForm();
 		onsubmit="return validateCallback(this, dialogAjaxDone);">
 		<input name="employee.id" type="hidden" value="${pojo.id!}">
 		<div class="pageFormContent" id="articleSave" layoutH="55">
-			<table class="mytablecls">
+			<table class="mytablecls" width="98%">
 				<tr>
 					<th>部门：</th><td><select name="employee.partmentid" class="combox" val="${pojo.partmentid!}"><@partSelect/></select></td>
 					<td colspan="2" rowspan="4" align="center" valign="middle">
@@ -98,7 +98,7 @@ initQueryForm();
 				<tr>
 					<th>备注：</th><td colspan="3"><textarea name="employee.remark" style="width:99%;height:50px;">${pojo.remark!}</textarea></td>
 				</tr>
-				<tr><th>简历：</th><td colspan="3"><@xheditor name="employee.resume" id="editresume" width=500 height=400 allowupload=1 mini=0>${pojo.resume!}</@xheditor></td></tr>
+				<tr><th>简历：</th><td colspan="3"><@xheditor name="employee.resume" id="editresume" width="99%" height="400px" allowupload=1 mini=0>${pojo.resume!}</@xheditor></td></tr>
 			</table>
 		</div>
 		<div class="formBar">

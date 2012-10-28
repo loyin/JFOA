@@ -143,7 +143,4 @@ function initQueryForm(){
 	$(".searchBar [type='submit']").click(function(){
 		$("[name='pageNum']").val(1);
 	});
-	$(".searchContent :text").each(function(i,item){
-		$(item).css("width","75px");
-	});
 }

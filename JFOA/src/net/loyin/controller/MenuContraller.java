@@ -60,7 +60,12 @@ public class MenuContraller extends BaseController {
 	public void move() {
 		int i=this.getParaToInt(0, 0);
 		Long id=this.getParaToLong(1, 0L);
-		Db.update("update menu set ordernum=ordernum+? where id=?",i==0?-1:1,id);
+		Db.update("update menu set ordernum=(case when ordernum >=1 then ordernum+? else 1 end) where id=?",i==0?-1:1,id);
 		toDwzJson( 200, "移动成功！", navTabId);
+	}
+	public void enable(){
+		Long id=this.getParaToLong(0, 0L);
+		Db.update("update menu set enable= (case when enable=1 then  0 else 1 end) where id=?",id);
+		toDwzJson( 200, "操作成功！", navTabId);
 	}
 }

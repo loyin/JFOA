@@ -2,7 +2,7 @@
 <@layout>
 <div class="pageContent">
 		<div class="pageFormContent" id="articleSave" layoutH="55">
-			<table class="mytablecls">
+			<table class="mytablecls"width="98%">
 				<tr>
 					<th>部门：</th><td>${org.name!}[${org.num!}]-${part.name!}[${part.num!}]</td>
 					<td colspan="2" rowspan="4" align="center" valign="middle">
@@ -28,15 +28,15 @@
 				</tr>
 				<tr>
 					<th>生日：</th><td>${pojo.birthday!}</td>
-					<th>手机：</th><td>${pojo.phone!}</td>
+					<th>手机：</th><td>${pojo.phone!"无"}</td>
 				</tr>
 				<tr>
-					<th>地址：</th><td colspan="3">${pojo.addr!}</td>
+					<th>地址：</th><td colspan="3">${pojo.addr!"无"}</td>
 				</tr>
 				<tr>
-					<th>备注：</th><td colspan="3">${pojo.remark!}</td>
+					<th>备注：</th><td colspan="3">${pojo.remark!"无"}</td>
 				</tr>
-				<tr><th>简历：</th><td colspan="3">${pojo.resume!}</td></tr>
+				<tr><th>简历：</th><td colspan="3">${pojo.resume!"无"}</td></tr>
 			</table>
 		</div>
 		<div class="formBar">
