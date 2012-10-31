@@ -5,8 +5,38 @@
 			<div class="pageFormContent" id="articleSave" layoutH="55">
 	<#list p as p1>
 	<p>
-		<label>${p1.get("pname")}</label>
-		<input type="text" name="${p1.get("key")}" value="${p1.get("value")!}">
+		<label>${p1.pname}</label>
+		<#if p1.type=='text'>
+		<input type="text" name="${p1.key}" value="${p1.value!}">
+		</#if>
+		<#if (p1.type??&&p1.listValue??)&&(p1.type=="radio"||p1.type=="checkbox")>
+			<#list p1.listValue.split(",") as v>
+				<#assign kv=v.split(":")>
+				<#if kv[1]??>
+					<#assign vv=kv[0]>
+					<#assign vt=kv[1]>
+				<#else>
+					<#assign vv=kv[0]>
+					<#assign vt=kv[0]>
+				</#if>
+			<input type="${p1.type}" name="${p1.key}" value="${vv}" <#if vv=p1.value>checked="checked" </#if>>${vt}
+			</#list>
+		</#if>
+		<#if (p1.type??&&p1.listValue??)&&(p1.type=="select")>
+			<select name="${p1.key}">
+				<#list p1.listValue.split(",") as v>
+				<#assign kv=v.split(":")>
+				<#if kv[1]??>
+					<#assign vv=kv[0]>
+					<#assign vt=kv[1]>
+				<#else>
+					<#assign vv=kv[0]>
+					<#assign vt=kv[0]>
+				</#if>
+				<option value="${vv}" <#if vv=p1.value>selected="selected"</#if>>${vt}</option>
+			</#list>
+			</select>
+		</#if>
 	</p>
 	</#list>
 	</div>

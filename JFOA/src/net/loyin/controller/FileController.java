@@ -16,7 +16,7 @@ public class FileController extends Controller {
 	private static SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmsss");
 	private static String uploadroot = "/upload/";
 	private static String root;
-	/**单个文件上传      swfupload*/
+	/**单个或多个文件上传      swfupload*/
 	@SuppressWarnings("deprecation")
 	@PowerBind
 	public void up() {

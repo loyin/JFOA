@@ -7,16 +7,17 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.loyin.StaticCfg;
 import net.loyin.jFinal.anatation.PowerBind;
 import net.loyin.jFinal.anatation.RouteBind;
 import net.loyin.jFinal.plugin.sqlXml.SqlManager;
@@ -36,8 +37,9 @@ public class WebadminController extends BaseController {
 	
 	public void index() {
 //		Record m=this.getSessionAttr("manager");
-		Record m=getAdmin();
+		Record m=getCurrentUser();
 		if(m==null){
+			this.setAttr("StaticCfg", new StaticCfg());
 			this.render("index.html");
 		}else{
 			List<Record> menus=fetchMenu();
@@ -55,26 +57,31 @@ public class WebadminController extends BaseController {
 	}
 	@PowerBind
 	public void loginDialog(){
+		this.setAttr("StaticCfg", new StaticCfg());
 		this.render("loginDialog.html");
 	}
 	@SuppressWarnings("unchecked")
 	private List<Record> fetchMenu(){
 		String sid=getSession().getId();
-		Record m=getAdmin();
+		Record m=getCurrentUser();
 		List<Record> menus=(List<Record>)MemcacheTool.mcc.get("menu"+sid);
 		if(menus==null||menus.isEmpty())
 			menus=Db.find(SqlManager.sql("webadmin.getpower"),m.get("id"));
 		if(menus!=null&&menus.isEmpty()==false){
 			//将菜单放置memcache
 			MemcacheTool.mcc.set("menu"+sid,menus,new Date(new Date().getTime()+86400000));
-			List<Record> btnlist=new ArrayList<Record>();
+			List<String> powersafecodelist=new ArrayList<String>();
 			for(Record menu:menus){
-				if(menu.getInt("type")==1){
-					btnlist.add(menu);
+				int menuType=menu.getInt("type");
+				if(menuType==2){
+					String safecode=menu.getStr("safecode");
+					if(safecode!=null&&!"".equals(safecode.trim())){
+						powersafecodelist.add(safecode);
+					}
 				}
 			}
 			//将按钮放置memcache
-			MemcacheTool.mcc.set("btn"+sid,btnlist,new Date(new Date().getTime()+86400000));
+			MemcacheTool.mcc.set("powersafecodelist"+sid,powersafecodelist,new Date(new Date().getTime()+86400000));
 		}
 		return menus;
 	}
@@ -86,18 +93,15 @@ public class WebadminController extends BaseController {
 		String code=this.getPara("code");
 		String check= this.getSessionAttr("check");
 		this.removeSessionAttr("check");
-		Map<String,Object> json=new HashMap<String,Object>();
+		boolean validCode="1".equals((String)StaticCfg.get("validCode").get("value"))?true:false;
 		
-		if(username==null||"".equals(username.trim())||pwd==null||"".equals(pwd)||code==null||"".equals(code)){
-			json.put("stat",200);
-			json.put("msg", "信息填写不全！");
+		if(username==null||"".equals(username.trim())||pwd==null||"".equals(pwd)||(code==null||"".equals(code))&&validCode){
+			this.toDwzJson(300, "信息填写不全！");
 		}else
-		if(check==null||"".equals(check)){
-			json.put("stat",200);
-			json.put("msg", "验证码超时");
-		}else if(!check.equals(code.toLowerCase())){
-			json.put("stat",200);
-			json.put("msg", "验证码错误");
+		if((check==null||"".equals(check))&&validCode){
+			this.toDwzJson(300, "验证码超时！");
+		}else if(validCode&&(check!=null&&code!=null&&!check.equals(code.toLowerCase()))){
+			this.toDwzJson(300, "验证码错误！");
 		}else{
 			pwd=MD5.getMD5ofStr(pwd);
 			Record m=Db.findFirst(SqlManager.sql("webadmin.login"), new Object[]{username,pwd});
@@ -108,32 +112,31 @@ public class WebadminController extends BaseController {
 				/**第一步 获取所有的session集合
 				 * 第二步 比较对应sessionid存储的Record记录
 				 * 第三步 对应的session进行超时操作,删除sessionid对应的缓存*/
-			/*	Set<String>sessionSet=(Set<String>)MemcacheTool.mcc.get("clientSet");
-				if(sessionSet!=null&&sessionSet.isEmpty()==false){
-					Iterator<String> it= sessionSet.iterator();
-					while(it.hasNext()){
-						String sid=it.next();
-						Record r=(Record) MemcacheTool.mcc.get(sid);
-						if(r!=null)
-						if(!sid.equals(nowsid)&&r.get("userno").equals(m.get("userno"))){
-							MemcacheTool.mcc.delete(sid);
-							MemcacheTool.mcc.delete("menu"+sid);
-							MemcacheTool.mcc.delete("btn"+sid);
+				boolean single="1".equals(StaticCfg.get("single").get("value"))?true:false;
+				if(single){
+					Set<String>sessionSet=(Set<String>)MemcacheTool.mcc.get("clientSet");
+					if(sessionSet!=null&&sessionSet.isEmpty()==false){
+						Iterator<String> it= sessionSet.iterator();
+						while(it.hasNext()){
+							String sid=it.next();
+							Record r=(Record) MemcacheTool.mcc.get(sid);
+							if(r!=null)
+							if(!sid.equals(nowsid)&&r.get("userno").equals(m.get("userno"))){
+								MemcacheTool.mcc.delete(sid);
+								MemcacheTool.mcc.delete("menu"+sid);
+								MemcacheTool.mcc.delete("btn"+sid);
+							}
 						}
 					}
 				}
-				*/
 				/**唯一登录结束*/
 				MemcacheTool.mcc.set(nowsid, m,new Date(new Date().getTime()+86400000));
 				fetchMenu();
-				json.put("stat",100);
-				json.put("msg", "登录成功");
+				this.toDwzJson(200, "登录成功");
 			}else{
-				json.put("stat",200);
-				json.put("msg", "用户名或密码错误");
+				this.toDwzJson(300, "用户名或密码错误");
 			}
 		}
-		renderText(gson.toJson(json));
 	}
 	@PowerBind
 	public void logout(){
@@ -141,7 +144,7 @@ public class WebadminController extends BaseController {
 		String sessionid=this.getSession().getId();
 		MemcacheTool.mcc.delete(sessionid);
 		MemcacheTool.mcc.delete("menu"+sessionid);
-		MemcacheTool.mcc.delete("btn"+sessionid);
+		MemcacheTool.mcc.delete("powersafecodelist"+sessionid);
 		this.redirect("/");
 	}
 	public void fun(){}

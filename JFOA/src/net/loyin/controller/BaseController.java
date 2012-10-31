@@ -23,7 +23,8 @@ public abstract class BaseController extends Controller {
 		this.setAttr("root","");
 		super.render(view);
 	}
-	public Record getAdmin(){
+	/**获取当前系统操作人*/
+	public Record getCurrentUser(){
 		return (Record)MemcacheTool.mcc.get(getSession().getId());
 	}
 	/**

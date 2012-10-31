@@ -41,6 +41,7 @@ initQueryForm();
 	<div class="pageContent">
 		<div class="panelBar">
 			<ul class="toolBar">
+			<@btnPower safecode="partctrl">
 				<li><a class="add" href="javascript:void(0);" url="${root!}/partment/add" title="添加部门"
 					target="dialog" height="200" width="600"><span>添加</span> </a></li>
 					<li><a class="add" href="javascript:void(0);" url="${root!}/partment/add/0-{sid_key}" title="添加子部门"
@@ -48,8 +49,8 @@ initQueryForm();
 				<li><a class="edit" href="javascript:void(0);" url="${root!}/partment/add/{sid_key}"
 					title="修改部门" target="dialog" height="200" width="600"><span>修改</span>
 				</a></li>
-				<li class="line">line</li>
 				<li><a class="delete" href="javascript:void(0);" url="${root!}/partment/del/{sid_key}" title="确定要删除该部门吗？" target="ajaxTodo"><span>删除</span> </a></li>
+				</@btnPower>
 			</ul>
 		</div>
 		<@table layouth="137" tid="partment_table"/>

@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Oct 28 13:47:00 CST 2012
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=JFOA.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

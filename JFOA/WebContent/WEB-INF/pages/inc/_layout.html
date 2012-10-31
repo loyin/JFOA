@@ -1,8 +1,21 @@
+<#assign path="${root!}">
 <#include "_table.html"/>
 <#include "_page_dwz.html"/>
 <#include "_searchBar.html"/>
-<#include "../../tagftl/xheditor.html"/>
-<#assign path="${root!}">
+<#--##########################-->
+<#--#### btnPower 按钮权限控制，如果安全码safecode包含则显示该按钮 powersafecodelist为存储该用户的安全码 类型为List<String> ####-->
+<#--##########################-->
+<#macro btnPower safecode=""><#if powersafecodelist??&&powersafecodelist.contains(safecode!)><#nested></#if></#macro>
+<#--##########################-->
+<#--#### xheditor标签                   ####-->
+<#--##########################-->
+<#macro xheditor name id width="100%" height="300px" allowupload=0 mini=1>
+<textarea name="${name}" id="xheditor${id}" style="width:${width!};height:${height!};"><#nested></textarea>
+<script>$(function(){$("#xheditor${id}").xheditor(xheditor_<#if allowupload==1>ajaxupload_</#if><#if mini==1>mini</#if>);});</script>
+</#macro>
+<#--##########################-->
+<#--### 页面布局共有 ###-->
+<#--##########################-->
 <#macro layout >
 <div class="page">
 <#compress><#--用来压缩空白空间和空白的行-->

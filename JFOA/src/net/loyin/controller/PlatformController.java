@@ -6,10 +6,10 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.loyin.StaticCfg;
 import net.loyin.interceptor.ManagerPowerInterceptor;
 import net.loyin.jFinal.anatation.PowerBind;
 import net.loyin.jFinal.anatation.RouteBind;
@@ -31,26 +31,16 @@ public class PlatformController extends BaseController {
 	public void index() {
 
 	}
-	public static Map<String, Map<String,String>> p = new HashMap<String, Map<String,String>>();
-	@SuppressWarnings("unchecked")
+	public static Map<String, Map<String,Object>> p =StaticCfg.cfg;
 	public void set() {
 		try {
-			String path = this.getClass().getResource("/").getPath().replace("classes/", "platform.txt");
-			System.out.println("配置文件："+path.substring(1));
-			InputStreamReader isr=new InputStreamReader(new FileInputStream(path.substring(1)), "utf-8");
-			BufferedReader reader = new BufferedReader(isr);
-			String line;
-			StringBuffer json=new StringBuffer();
-			while ((line = reader.readLine()) != null) {
-				json.append(line);
-			}
-			reader.close();
-			p=new Gson().fromJson(json.toString(),p.getClass());
-			List<Map<String,String>>list=new ArrayList<Map<String,String>>();
-			for(int i=0;i<p.keySet().size();i++){
+			StaticCfg.load();
+			p =StaticCfg.cfg;
+			List<Map<String,Object>>list=new ArrayList<Map<String,Object>>();
+			for(int i=0;i<=p.keySet().size();i++){
 				for(String key:p.keySet()){
-					Map<String,String> m=p.get(key);
-					if(Integer.valueOf(m.get("paixu"))==i){
+					Map<String,Object> m=p.get(key);
+					if(Integer.valueOf((String)m.get("paixu"))==i){
 						list.add(m);
 					}
 				}
@@ -64,7 +54,7 @@ public class PlatformController extends BaseController {
 	public void save() {
 		
 		for(String key:p.keySet()){
-			Map<String,String> pp=p.get(key);
+			Map<String,Object> pp=p.get(key);
 			String value=this.getPara(key);
 			pp.put("value",value);
 			p.put(key, pp);
@@ -76,6 +66,7 @@ public class PlatformController extends BaseController {
 			OutputStreamWriter w=new OutputStreamWriter(new FileOutputStream(path),"UTF-8");
 			w.write(json);
 			w.close();
+			StaticCfg.load();
 			toDwzJson( 200, "保存成功！");
 		}catch(Exception e){
 			toDwzJson( 300, "保存失败！");

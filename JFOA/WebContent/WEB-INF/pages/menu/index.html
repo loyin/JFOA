@@ -26,6 +26,7 @@
 	<div class="pageContent">
 		<div class="panelBar">
 			<ul class="toolBar">
+			<@btnPower safecode="menuctrl">
 				<li><a class="add" href="javascript:void(0);" url="${root!}/menu/add" title="添加顶级菜单"
 					target="dialog" height="300" width="800"><span>添加顶级菜单</span> </a></li>
 				<li><a class="add" href="javascript:void(0);" url="${root!}/menu/child/{sid_key}" title="添加子菜单"
@@ -39,6 +40,7 @@
 				<li class="line">line</li>
 				<li><a class="btnmoveUp" href="javascript:void(0);" url="${root!}/menu/move/0-{sid_key}" target="ajaxTodo"><span>上移</span> </a></li>
 				<li><a class="btnmoveDown" href="javascript:void(0);" url="${root!}/menu/move/1-{sid_key}" target="ajaxTodo"><span>下移</span> </a></li>
+			</@btnPower>
 			</ul>
 		</div>
 		<table class="table" width="800px" id="menu_table" layouth="50">

@@ -1,5 +1,11 @@
 <#include "../inc/_layout.html"/>
 <@layout>
+<script>
+$("#tableemp tr td:nth-child(6)").each(function(r,td){
+	var num=(new Number($(td).text()));
+	$(td).html(empStatu[num]);
+});
+</script>
 <div class="pageHeader">
 		<form action="${path}/employee/list" method="post" id="pagerForm"
 			onsubmit="return divSearch(this,'empbox')">
@@ -23,23 +29,29 @@
 	<div class="pageContent">
 		<div class="panelBar">
 			<ul class="toolBar">
+			<@btnPower safecode="empaed">
 				<li><a class="add" href="javascript:void(0);" url="${path}/employee/add/${orgid!0}-${partid!0}" title="添加员工信息"
-					target="dialog" rel="newemployee"><span>添加</span></a></li>
+					target="dialog" rel="newemployee" height="500"><span>添加</span></a></li>
 				<li><a class="edit" href="javascript:void(0);" url="${path}/employee/add/${orgid!0}-${partid!0}-{sid_key}"
-					title="修改员工信息" target="dialog" rel="1"><span>修改</span>
-				<li><a class="edit" href="javascript:void(0);" url="${path}/employee/show/{sid_key}"
-					title="查看员工信息" target="dialog" rel="2"><span>查看</span>
-				</a></li>
+					title="修改员工信息" target="dialog" height="500" rel="1"><span>修改</span>
 				<li><a class="delete" href="javascript:void(0);" url="${path}/employee/del/{sid_key}"
-					title="确定要删除该用户吗？" target="ajaxTodo"><span>删除</span> </a></li>
+					title="确定要删除该员工吗？" target="ajaxTodo"><span>删除</span> </a></li>
 				<li class="line">line</li>
+			</@btnPower>
+			<@btnPower safecode="empset">
 				<li><a class="edit" href="javascript:void(0);" url="${path}/employee/resetPwd/{sid_key}"
-					title="确定要重设该用户的密码吗？此密码为随机生成6位字符密码。" target="ajaxTodo"><span>重设密码</span> </a></li>
-				<li><a class="edit" href="javascript:void(0);" url="${path}/employee/role/{sid_key}" target="dialog" height="200" width="500"><span>设置角色</span>
+					title="确定要重设该员工的密码吗？此密码为随机生成6位字符密码。" target="ajaxTodo"><span>重设密码</span> </a></li>
+				<li><a class="edit" href="javascript:void(0);" url="${path}/employee/role/{sid_key}" target="dialog" height="200" width="500"><span>设置角色</span></a></li>
+				<li class="line">line</li>
+			</@btnPower>
+			<@btnPower safecode="empshow">
+				<li><a class="view" href="javascript:void(0);" url="${path}/employee/show/{sid_key}"
+					title="查看员工信息" target="dialog" height="500" rel="2"><span>查看</span>
 				</a></li>
+			</@btnPower>
 			</ul>
 		</div>
-		<@table layouth="137"/>
+		<@table layouth="137" tid="tableemp"/>
 	</div>
 <@paginate rel="empbox"/>
 </@layout>

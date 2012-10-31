@@ -248,7 +248,7 @@ a:hover {text-decoration:underline;}
 .panelBar .toolBar a.delete span { background-position:0 -746px;}
 .panelBar .toolBar a.edit span { background-position:0 -796px;}
 .panelBar .toolBar a.icon span { background-position:0 -846px;}
-
+.panelBar .toolBar a.view span { background-position:0 -892px;}
 .panelBar .toolBar li.line { display:block; overflow:hidden; width:12px; padding:0; text-indent:-1000px; background-position:5px -200px;}
 
 .panelBar .pages { float:left; overflow:hidden; height:21px; padding:2px 5px;}

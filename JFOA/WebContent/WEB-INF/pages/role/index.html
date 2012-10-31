@@ -25,13 +25,14 @@ $(function (){
 	<div class="pageContent">
 		<div class="panelBar">
 			<ul class="toolBar">
+			<@btnPower safecode="rolectrl">
 				<li><a class="add" href="javascript:void(0);" url="${root!}/role/add" title="添加角色"
 					target="dialog" height="200" width="600"><span>添加</span> </a></li>
 				<li><a class="edit" href="javascript:void(0);" url="${root!}/role/add/{sid_key}"
 					title="修改角色" target="dialog" height="200" width="600"><span>修改</span>
 				</a></li>
-				<li class="line">line</li>
 				<li><a class="delete" href="javascript:void(0);" url="${root!}/role/del/{sid_key}" title="确定要删除该角色吗？" target="ajaxTodo"><span>删除</span> </a></li>
+			</@btnPower>
 			</ul>
 		</div>
 		<@table layouth="137" tid="role_table"/>

@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSessionListener;
 import net.loyin.memcache.MemcacheTool;
 
 /**
- * 
- * @author loyin 2012-10-14
+ * sessin监听器，统计在线客户端数及ip数量，以及处理失效后的memcache内容管理
+ * @author 龙影 loyin
+ * 2012-10-28
  */
 public class SessionListener implements HttpSessionListener,
 		ServletRequestListener, HttpSessionActivationListener {
@@ -29,7 +30,6 @@ public class SessionListener implements HttpSessionListener,
 	@SuppressWarnings("unchecked")
 	@Override
 	public void sessionCreated(HttpSessionEvent ev) {
-		System.out.print("session创建");
 		String sessionid = ev.getSession().getId();
 		String ip = request.getRemoteAddr();
 		Set<String> clientSet = (Set<String>) MemcacheTool.mcc.get(clientSetkey);
@@ -51,7 +51,6 @@ public class SessionListener implements HttpSessionListener,
 	@SuppressWarnings("unchecked")
 	@Override
 	public void sessionDestroyed(HttpSessionEvent ev) {
-		System.out.print("session失效");
 		String sessionid = ev.getSession().getId();
 		Set<String> clientSet = (Set<String>) MemcacheTool.mcc.get(clientSetkey);
 		if (clientSet != null && clientSet.isEmpty() == false) {
@@ -65,6 +64,8 @@ public class SessionListener implements HttpSessionListener,
 			MemcacheTool.mcc.set(teSetkey, teSet,new Date(new Date().getTime()+timelong));
 		}
 		MemcacheTool.mcc.delete(sessionid);
+		MemcacheTool.mcc.delete("menu"+sessionid);
+		MemcacheTool.mcc.delete("powersafecodelist"+sessionid);
 	}
 
 	@Override

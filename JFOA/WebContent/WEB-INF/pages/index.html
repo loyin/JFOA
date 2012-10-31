@@ -17,21 +17,24 @@ function login(){
 	$form=$("form");
 	var username=$("#username").val();
 	var pwd=$("#pwd").val();
-	var code=$("#code").val();
+	var code=" ";
+	<#if StaticCfg.get("validCode").get("value")=="1">
+	code=$("#code").val();
+	</#if>
 	if(username==''||pwd==''||code==''){
 		changecode();
 		alert("有未填写项，请完善输入！");
 	}else{
 		$.ajax({url:"${root}/login",data:$form.serialize(),dataType:'json',
 		success:function(msg){
-		if(msg.stat==100){
+		if(msg.statusCode==200){
 			$form=$("form");
 			$form.attr("action","${root}");
 			$form.attr("onsubmit","");
 			$form.submit();
 		}else{
 			changecode();
-			alert(msg.msg);
+			alert(msg.message);
 		}
 		},error:function(){changecode();alert("数据提交异常！请检查网络");}});
 	}
@@ -63,12 +66,14 @@ function login(){
 						<label>密码：</label>
 						<input type="password" name="pwd" id="pwd" size="20" value="123456" class="login_input" />
 					</p>
+					<#if StaticCfg.get("validCode").get("value")=="1">
 					<p>
 						<label>验证码：</label>
 						<input class="code" name="code" id="code" type="text" size="4" />
 						<span><img src="${root}/jpg" id="codeimg" onclick="this.src='${root}/jpg?id='+Math.random()*10"
 						title="点击更新验证码"  width="75" height="24" /></span>
 					</p>
+					</#if>
 					<div class="login_bar">
 						<a class="sub" onclick="login();"></a>
 					</div>

@@ -13,35 +13,11 @@
 <link href="${root!}/ht/dwz/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
 <![endif]-->
 <link href="${root!}/xheditor/style.css" rel="stylesheet" />
-<style>
-.mytablecls {
-border-left: 1px solid #C1DAD7;
-border-top: 1px solid #C1DAD7;
-}
-.mytablecls td p{width:auto;height:auto;}
-.mytablecls th {
-	word-wrap:break-word;width:80px;
-	border-right: 1px solid #C1DAD7;
-	border-bottom: 1px solid #C1DAD7;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	padding: 2px 2px 2px 6px;
-}
-.mytablecls td {
-	border-right: 1px solid #C1DAD7;
-	border-bottom: 1px solid #C1DAD7;
-	padding: 2px 2px 2px 6px;
-	height:35px;
-}
-#header{height:85px}
-#leftside, #container, #splitBar, #splitBarProxy{top:90px}
-#navMenu a{text-transform:none;}
-.searchContent :text{width:80px;}
-</style>
 <script src="${root!}/js/jquery.min.js"></script>
 <script src="${root!}/js/jquery.cookie.js"></script>
 <script src="${root!}/js/jquery.validate.js"></script>
 <script src="${root!}/js/jquery.bgiframe.js"></script>
+<script src="${root!}/js/jquery.timers-1.2.js"></script>
 <script src="${root!}/xheditor/xheditor-1.1.12-zh-cn.js"></script>
 <script src="${root!}/js/dwz.min.js"></script>
 <script src="${root!}/js/dwz.regional.zh.js"></script>
@@ -51,7 +27,8 @@ border-top: 1px solid #C1DAD7;
 <script src="${root!}/js/swfupload/swfupload.js"></script>
 <script>
 var menuType=["导航栏","菜单","按钮"];
-var sysparamType=["菜系","房台类型"];
+var sysparamType=["类型一","类型二"];
+var empStatu=["","在职","<span style='color:blue;'>出差</span>","<span style='color:green;'>休假</span>","<span style='color:red;'>离职</span>"];
 	var path = "${root!}";
 	$(function() {
 		DWZ.init("${root!}/ht/dwz/dwz.frag.xml", {
@@ -75,10 +52,15 @@ var sysparamType=["菜系","房台类型"];
 				$("#themeList").theme({
 					themeBase : "${root!}/ht/dwz"
 				}); // themeBase 相对于index页面的主题base路径
+				$("#navMenu li:first-child").addClass("selected");
+				$("body").oneTime(50,"showfirstchildmenu",function(){$("#navMenu .selected a").click();$("body").stopTime("showfirstchildmenu");});
 			}
 		});
-		$("#navMenu li:first-child").addClass("selected");
 	});
+	function unclose(param){
+		if(param)
+		return false;
+	}
 </script>
 </head>
 <body scroll="no">
@@ -88,11 +70,11 @@ var sysparamType=["菜系","房台类型"];
 				<a class="logo" href="javascript:void(0);">标志</a>
 				<ul class="nav">
 					<li style="color:#B9CCDA;">欢迎,${user.fullname!}[${user.userno}]</li>
-					<li><a href="javascript:void(0);" url="loginDialog" target="dialog" rel="login">重新登录</a></li>
+					<li><a href="javascript:void(0);" url="loginDialog" target="dialog" rel="login" mask="true" width="430" height="200">重新登录</a></li>
 					<li><a href="javascript:void(0);" onclick="if(confirm('确定要退出系统吗？退出后未保存的数据将丢失！！')==true) return this.href='${root!}/logout';else return false;">退出</a></li>
 				</ul>
 			</div>
-			<#-- navMenu -->
+			<#-- 导航菜单栏 -->
 			<div id="navMenu">
 				<ul>
 				<#list menus as m>
@@ -117,7 +99,7 @@ var sysparamType=["菜系","房台类型"];
 				<div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>
 				<#--菜单-->
 				<div class="accordion" fillSpace="sidebar" id="menulan">
-					<#include "getmenu.html">
+					<#--include "getmenu.html"-->
 				</div>
 			</div>
 		</div>

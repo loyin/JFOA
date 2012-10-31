@@ -8,13 +8,16 @@ function login(){
 	$form=$("#loginform");
 	var username=$("#username",$form).val();
 	var pwd=$("#pwd",$form).val();
-	var code=$("#code",$form).val();
+	var code=" ";
+	<#if StaticCfg.get("validCode").get("value")=="1">
+	code=$("#code",$form).val();
+	</#if>
 	if(username==''||pwd==''||code==''){
 		alertMsg.alert("有未填写项，请完善输入！");
 	}else{
 		$.ajax({url:"${root}/login",data:$form.serialize(),dataType:'json',
-		success:function(msg){
-		if(msg.stat==100){
+		success:function(message){
+		if(message.stat==100){
 		/*	$form=$("form");
 			$form.attr("action","${root}/webadmin");
 			$form.attr("onsubmit","");
@@ -22,32 +25,46 @@ function login(){
 			$("#loginclose").click();
 		}else{
 			changecode();
-			alertMsg.alert(msg.msg);
+			alertMsg.alert(message.message);
 		}
 		},error:function(){changecode();alertMsg.alert("数据提交异常！请检查网络");}});
 	}
 }
+function done(message){
+	if(message.statusCode==200){
+		/*	$form=$("form");
+			$form.attr("action","${root}/webadmin");
+			$form.attr("onsubmit","");
+			$form.submit();*/
+			$("#loginclose").click();
+		}else{
+			changecode();
+			alertMsg.alert(message.message);
+		}
+}
 </script>
 <div class="pageContent">
-		<form method="post" id="loginform">
+		<form method="post" id="loginform" class="pageForm required-validate" action="${root}/login"onsubmit="return validateCallback(this, dialogAjaxDone);">
 			<div class="pageFormContent" id="articleSave" layoutH="55">
 				<p>
-					<label>账号：</label> <input type="text" name="username"/>
+					<label>账号：</label> <input type="text" name="username" class="required"/>
 				</p>
 				<p>
-					<label>密码：</label><input type="password" name="pwd">
+					<label>密码：</label><input type="password" name="pwd" class="required">
 				</p>
+				<#if StaticCfg.get("validCode").get("value")=="1">
 				<p>
-					<label>验证码：</label> <input class="code" name="code" id="code" type="text" size="4" />
+					<label>验证码：</label> <input class="code" name="code" id="code" type="text" size="4" class="required" />
 						<span><img src="${root}/jpg" id="codeimg" onclick="this.src='${root}/jpg?id='+Math.random()*10"
 						title="点击更新验证码"  width="75" height="24" /></span>
 				</p>
+				</#if>
 			</div>
 			<div class="formBar">
 				<ul>
 					<li><div class="buttonActive">
 							<div class="buttonContent">
-								<button onclick="login();return false;">登录</button>
+								<button type="submit">登录</button>
 							</div>
 						</div></li>
 					<li>

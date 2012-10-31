@@ -48,6 +48,7 @@ public class ManagerPowerInterceptor implements Interceptor {
 				List<Record> menus=(List<Record>)MemcacheTool.mcc.get("menu"+sid);
 				if(menus!=null&&menus.isEmpty()==false){
 					if(checkPower(menus,ai.getActionKey(),code)){//链接或安全码匹配
+						ctrl.setAttr("powersafecodelist",MemcacheTool.mcc.get("powersafecodelist"+sid));
 						ai.invoke();//注意 一定要执行此方法
 					}else{
 						f=true;

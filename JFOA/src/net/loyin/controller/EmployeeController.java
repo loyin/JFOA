@@ -137,7 +137,7 @@ public class EmployeeController extends BaseController {
 
 	public void del() {
 		Long id = getParaToLong(0, 0L);
-		Record po = getAdmin();
+		Record po = getCurrentUser();
 		if (id != po.getLong("id")) {
 			Employee.dao.deleteById(id);
 			toDwzJson(200, "删除成功！", navTabId);
@@ -164,7 +164,7 @@ public class EmployeeController extends BaseController {
 	public void savepwd() {
 		String oldpwd = getPara("oldpwd");
 		String pwd = getPara("pwd");
-		Record po = getAdmin();
+		Record po = getCurrentUser();
 		Employee e = Employee.dao.findById(po.get("id"));
 		String pwd1 = e.getStr("pwd");
 		if (MD5.getMD5ofStr(oldpwd).equals(pwd1)) {

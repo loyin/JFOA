@@ -25,6 +25,7 @@ $(function (){
 	<div class="pageContent">
 		<div class="panelBar">
 			<ul class="toolBar">
+			<@btnPower safecode="orgctrl">
 				<li><a class="add" href="javascript:void(0);" url="${root!}/organization/add" title="添加机构"
 					target="dialog" height="200" width="600"><span>添加</span> </a></li>
 				<li><a class="edit" href="javascript:void(0);" url="${root!}/organization/add/{sid_key}"
@@ -32,6 +33,7 @@ $(function (){
 				</a></li>
 				<li class="line">line</li>
 				<li><a class="delete" href="javascript:void(0);" url="${root!}/organization/del/{sid_key}" title="确定要删除该机构吗？" target="ajaxTodo"><span>删除</span> </a></li>
+				</@btnPower>
 			</ul>
 		</div>
 		<@table layouth="137" tid="organization_table"/>

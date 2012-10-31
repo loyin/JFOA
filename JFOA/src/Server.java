@@ -17,7 +17,6 @@ public class Server {
 			}catch(Exception e){}
 		}
 		try{
-			Testclz.main(args);
 			JFinal.start(webAppDir.substring(1), port,content, 10);
 		}catch(Exception e){e.printStackTrace();}
 	}

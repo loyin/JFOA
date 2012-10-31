@@ -8,7 +8,6 @@ $("#menu_tablse tr td:nth-child(2)").each(function(r,td){
 <#list powerlist as p>$("[name='menus'][value=${p.menuid!}]").attr("checked","true");</#list>
 </script>
 <style>
-.span0{margin-left:0px;}
 .span1{margin-left:20px;}
 .span2{margin-left:40px;}
 .span3{margin-left:60px;}
@@ -77,11 +76,13 @@ $("#menu_tablse tr td:nth-child(2)").each(function(r,td){
 			</div>
 			<div class="formBar">
 				<ul>
+				<@btnPower safecode="powersave">
 					<li><div class="buttonActive">
 							<div class="buttonContent">
 								<button type="submit">保存</button>
 							</div>
 						</div></li>
+				</@btnPower>
 					<li>
 						<div class="button">
 							<div class="buttonContent">

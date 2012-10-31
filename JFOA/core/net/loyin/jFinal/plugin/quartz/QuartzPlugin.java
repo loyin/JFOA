@@ -40,7 +40,7 @@ public class QuartzPlugin implements IPlugin {
 			new RuntimeException(e); 
 		}
 		loadProperties();
-		Enumeration enums = properties.keys();
+		Enumeration<?> enums = properties.keys();
 		while (enums.hasMoreElements()) {
 			String key = enums.nextElement() + "";
 			if (!key.endsWith("job")) {

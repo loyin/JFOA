@@ -2,10 +2,10 @@ package net.loyin.jFinal.plugin;
 
 import java.util.List;
 
-import net.loyin.controller.BaseController;
 import net.loyin.jFinal.anatation.RouteBind;
 
 import com.jfinal.config.Routes;
+import com.jfinal.core.Controller;
 
 /**
  * Routes 工具类 自动绑定Controller
@@ -20,11 +20,10 @@ public class MyRoutesUtil{
 			for(Class clz:list){
 				RouteBind rb=(RouteBind)clz.getAnnotation(RouteBind.class);
 				if(rb!=null){
-					me.add(rb.path(),clz);
-				}else{
-					if(clz.getSuperclass()==BaseController.class){
-						System.out.println(clz.getSimpleName());
-						me.add("/"+clz.getName().replace("Controller", "").toLowerCase(),clz);
+					me.add(rb.path(),clz,rb.viewPath());
+				}else if(clz.getSuperclass()!=null){
+					if(clz.getSuperclass()==Controller.class||clz.getSuperclass().getSuperclass()==Controller.class){
+						me.add("/"+clz.getSimpleName().replace("Controller", "").toLowerCase(),clz);
 					}
 				}
 			}
