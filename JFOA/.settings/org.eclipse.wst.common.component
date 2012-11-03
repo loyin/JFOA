@@ -7,6 +7,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/core"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/cmd"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/jfinal"/>
         <property name="context-root" value="JFOA"/>
         <property name="java-output-path" value="/JFOA/build/classes"/>
     </wb-module>

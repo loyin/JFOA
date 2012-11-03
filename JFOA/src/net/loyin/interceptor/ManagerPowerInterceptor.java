@@ -2,6 +2,7 @@ package net.loyin.interceptor;
 
 import java.util.List;
 
+import net.loyin.StaticCfg;
 import net.loyin.jFinal.anatation.PowerBind;
 import net.loyin.memcache.MemcacheTool;
 
@@ -20,6 +21,7 @@ public class ManagerPowerInterceptor implements Interceptor {
 	public void intercept(ActionInvocation ai) {
 		Controller ctrl=ai.getController();
 		ctrl.setAttr("root","");
+		ctrl.setAttr("StaticCfg", new StaticCfg());
 //		Record po= (Record)ctrl.getSessionAttr("manager");
 		String sid=ctrl.getSession().getId();
 		Record po=(Record)MemcacheTool.mcc.get(sid);

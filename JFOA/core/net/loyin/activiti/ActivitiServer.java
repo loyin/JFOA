@@ -18,12 +18,12 @@ public class ActivitiServer {
 	static {
 		try {
 			Thread.sleep(500);
-			sprocesscfg.setJdbcDriver(PropertiesContent.get("jdbc.driverClassName"));
+			sprocesscfg.setJdbcDriver(PropertiesContent.get("jdbc.driver"));
 			sprocesscfg.setJdbcPassword(PropertiesContent.get("jdbc.password"));
 			sprocesscfg.setJdbcUrl(PropertiesContent.get("jdbc.url"));
 			sprocesscfg.setJdbcUsername(PropertiesContent.get("jdbc.username"));
 			sprocesscfg.setDatabaseSchemaUpdate("true");
-			sprocesscfg.setDatabaseType("mysql");
+			sprocesscfg.setDatabaseType(PropertiesContent.get("jdbc.dbType"));
 			sprocesscfg.setJobExecutorActivate(false);
 			processEngine=ActivitiServer.sprocesscfg.buildProcessEngine();//触发执行相关表的创建
 //			processEngine.getRepositoryService().createDeployment().addZipInputStream(

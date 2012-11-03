@@ -11,6 +11,7 @@ import net.loyin.memcache.MemcacheTool;
 import net.loyin.util.PropertiesContent;
 
 import com.alibaba.druid.filter.stat.StatFilter;
+import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -53,10 +54,11 @@ public class JFWebConfig extends JFinalConfig {
 		// 配置数据库连接池插件
 		DruidPlugin druidPlugin = new DruidPlugin(PropertiesContent.get("jdbc.url"),
 												  PropertiesContent.get("jdbc.username"),
-												  PropertiesContent.get("jdbc.password"));
-		/*WallFilter wall = new WallFilter();
-		wall.setDbType("mysql");
-		druidPlugin.addFilter(wall);*/
+												  PropertiesContent.get("jdbc.password")
+												  ,PropertiesContent.get("jdbc.driver"));
+		WallFilter wall = new WallFilter();
+		wall.setDbType(PropertiesContent.get("jdbc.dbType"));
+		druidPlugin.addFilter(wall);
 		druidPlugin.addFilter(new StatFilter());
 		me.add(druidPlugin);
 		// 配置ActiveRecord插件

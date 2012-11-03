@@ -36,18 +36,20 @@ import com.jfinal.plugin.activerecord.Record;
 public class WebadminController extends BaseController {
 	
 	public void index() {
+		this.setAttr("StaticCfg", new StaticCfg());
 //		Record m=this.getSessionAttr("manager");
 		Record m=getCurrentUser();
 		if(m==null){
 			this.setAttr("StaticCfg", new StaticCfg());
-			this.render("index.html");
 		}else{
 			List<Record> menus=fetchMenu();
-			this.setAttr("menus",menus);
-			this.setAttr("pid", menus.get(0).getLong("id"));
-			this.setAttr("menuChild",menus);
-			this.setAttr("user",m);
-			this.render("main.html");
+			if(menus!=null&&menus.isEmpty()==false){
+				this.setAttr("menus",menus);
+				this.setAttr("pid", menus.get(0).getLong("id"));
+				this.setAttr("menuChild",menus);
+				this.setAttr("user",m);
+				this.render("main.html");
+			}
 		}
 	}
 	public void commmenu(){}

@@ -4,14 +4,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
-<link href="${root}/ht/dwz/css/login.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${root}/js/jquery.min.js"></script>
+<link href="${root!}/ht/dwz/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${root!}/js/jquery.min.js"></script>
 <script type="text/javascript">
 $.ajaxSetup ({
 cache: false
 });
 function changecode(){
-	$("#codeimg").attr("src",'${root}/jpg?id='+Math.random()*10);
+	$("#codeimg").attr("src",'${root!}/jpg?id='+Math.random()*10);
 }
 function login(){
 	$form=$("form");
@@ -25,11 +25,11 @@ function login(){
 		changecode();
 		alert("有未填写项，请完善输入！");
 	}else{
-		$.ajax({url:"${root}/login",data:$form.serialize(),dataType:'json',
+		$.ajax({url:"${root!}/login",data:$form.serialize(),dataType:'json',
 		success:function(msg){
 		if(msg.statusCode==200){
 			$form=$("form");
-			$form.attr("action","${root}");
+			$form.attr("action","${root!}");
 			$form.attr("onsubmit","");
 			$form.submit();
 		}else{
@@ -52,7 +52,7 @@ function login(){
 					<ul>
 					</ul>
 				</div>
-				<h2 class="login_title"><img src="${root}/ht/dwz/default/images/login_title.png" /></h2>
+				<h2 class="login_title"><img src="${root!}/ht/dwz/default/images/login_title.png" /></h2>
 			</div>
 		</div>
 		<div id="login_content">
@@ -70,7 +70,7 @@ function login(){
 					<p>
 						<label>验证码：</label>
 						<input class="code" name="code" id="code" type="text" size="4" />
-						<span><img src="${root}/jpg" id="codeimg" onclick="this.src='${root}/jpg?id='+Math.random()*10"
+						<span><img src="${root!}/jpg" id="codeimg" onclick="this.src='${root!}/jpg?id='+Math.random()*10"
 						title="点击更新验证码"  width="75" height="24" /></span>
 					</p>
 					</#if>
@@ -79,7 +79,7 @@ function login(){
 					</div>
 				</form>
 			</div>
-			<div class="login_banner"><img src="${root}/ht/dwz/default/images/login_banner.jpg" /></div>
+			<div class="login_banner"><img src="${root!}/ht/dwz/default/images/login_banner.jpg" /></div>
 			<div class="login_main">
 				<ul class="helpList">
 					
