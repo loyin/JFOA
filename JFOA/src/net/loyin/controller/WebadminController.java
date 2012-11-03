@@ -74,7 +74,7 @@ public class WebadminController extends BaseController {
 			MemcacheTool.mcc.set("menu"+sid,menus,new Date(new Date().getTime()+86400000));
 			List<String> powersafecodelist=new ArrayList<String>();
 			for(Record menu:menus){
-				int menuType=menu.getInt("type");
+				int menuType=Integer.valueOf(menu.get("type").toString());
 				if(menuType==2){
 					String safecode=menu.getStr("safecode");
 					if(safecode!=null&&!"".equals(safecode.trim())){

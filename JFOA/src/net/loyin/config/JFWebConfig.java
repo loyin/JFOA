@@ -56,9 +56,9 @@ public class JFWebConfig extends JFinalConfig {
 												  PropertiesContent.get("jdbc.username"),
 												  PropertiesContent.get("jdbc.password")
 												  ,PropertiesContent.get("jdbc.driver"));
-		WallFilter wall = new WallFilter();
-		wall.setDbType(PropertiesContent.get("jdbc.dbType"));
-		druidPlugin.addFilter(wall);
+//		WallFilter wall = new WallFilter();
+//		wall.setDbType(PropertiesContent.get("jdbc.dbType"));
+//		druidPlugin.addFilter(wall);
 		druidPlugin.addFilter(new StatFilter());
 		me.add(druidPlugin);
 		// 配置ActiveRecord插件
