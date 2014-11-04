@@ -6,6 +6,7 @@ activiti工作流引擎目前还在调整中，此次上传是方便大家共享
 目前登陆机制是：
 将用户信息存储在memcache中，然后通过sessionid来取出来。
 首先要将memcache服务启动，及在exe目录下的memcache.exe
+====
 <img src="http://www.loyin.net/s/img/head.jpg" title="">
 <img src="http://www.loyin.net/s/img/myson.png" title="儿子：果果 百天照" height="100px">
  <img src="https://img.alipay.com/sys/personalprod/style/mc/btn-index.png">姓名：刘声凤 支付宝账号：loyinonline@163.com<br>
