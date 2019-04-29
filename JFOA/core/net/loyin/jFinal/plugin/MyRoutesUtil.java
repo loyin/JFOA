@@ -15,7 +15,7 @@ import com.jfinal.core.Controller;
 public class MyRoutesUtil{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void add(Routes me){
-		List<Class> list= ClassSearcher.findClasses();
+		List<Class> list= ClassSearcher.findClasses(Controller.class);
 		if(list!=null&&list.isEmpty()==false){
 			for(Class clz:list){
 				RouteBind rb=(RouteBind)clz.getAnnotation(RouteBind.class);
